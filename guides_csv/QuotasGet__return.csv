@@ -1,0 +1,15 @@
+;DQuotas;
+Id_Quota;int;Идентификатор типа квоты.
+QuotaName;string;Название типа квоты
+QuotaDescription;string;Описание типа квоты
+DateLastChange;dateTime;Дата последнего изменения записи
+UniversityKode;string;GUID идентификатор учебного заведения
+SpecDirectionsCode;string;GUID идентификатор направления
+SpecSpecialityCode;string;GUID идентификатор специальности
+Id_University;int;Числовой идентификатор учебного заведения
+UniversityFullName;string;Название учебного заведения
+SpecDirectionName;string;Название направления
+SpecClasifierCode;string;Код направления
+SpecSpecialityName;string;Название специальности
+SpecSpecialityClasifierCode;string;Код специальности
+Id_PersonRequestSeasons;int;Идентификатор вступительной компании

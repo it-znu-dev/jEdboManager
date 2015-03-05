@@ -1,0 +1,9 @@
+;DSubjects;
+Id_Subject;int;Идентификатор предмета
+SubjectKey;string;Строковый код предмета
+IdZnoSubject;int;Идентификатор предмета поклассификатору УЦОЯО
+ParentSubject;int;Родительский Id_Subject для предмета
+SubjectDateBegin;dateTime;Дата начала действия записи
+SubjectDateEnd;dateTime;Дата окончания действия записи
+Id_Language;int;Идентификатор языка записей
+SubjectName;string;Название предмета

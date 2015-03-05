@@ -1,0 +1,4 @@
+;DLanguages;
+Id_Language;int;Идентификатор языка.
+Code;string;Код языка.
+LanguageName;string;Название языка.

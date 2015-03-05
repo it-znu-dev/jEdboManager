@@ -1,0 +1,22 @@
+;DUniversityFacultetSpecialitiesQuotas;
+Id_UniversitySpecialitiesQuota;int;Идентификатор квоты специальности.
+UniversitySpecialitiesQuotaPriority;int;Приоритет квоты специальности
+UniversitySpecialitiesQuotaValue;float;Значение квоты специальности
+Id_Quota;int;Идентификатор квоты для учебного заведения
+QuotaName;string;Название квоты
+QuotaDescription;string;Описание квоты
+DateLastChange;dateTime;Дата последнего изменения квоты
+UniversityKode;string;GUID идентификатор учебного заведения
+SpecDirectionsCode;string;GUID идентификатор направления для квоты 
+SpecClasifierCode;string;Код направления для квоты 
+SpecDirectionName;string;Название направления для квоты
+SpecSpecialityCode;string;GUID идентификатор специальности для квоты
+SpecSpecialityClasifierCode;string;Код специальности для квоты 
+SpecSpecialityName;string;Название специальности для квоты
+Id_PersonRequestSeasons;int;Идентификатор вступительной компании для квоты 
+Id_UniversitySpecialities;int;Числовой идентификатор специальности
+UniversitySpecialitiesKode;string;GUIDA идентификатор специальности
+UniversitySpecialitiesDateBegin;dateTime;Дата начала действия специальности
+UniversitySpecialitiesDateEnd;dateTime;Дата окончания действия специальности
+UniversityFullName;string;Название учебного заведения
+Id_University;int;Числовой идентификатор учебного заведения

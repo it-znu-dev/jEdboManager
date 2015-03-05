@@ -1,0 +1,2 @@
+SessionGUID;String;GUID идентификатор сессии пользователя.
+Id_UniversityCource;int;Идентификатор языка для названий ВУЗов

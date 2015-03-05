@@ -1,0 +1,9 @@
+;DEducationTypes;
+Id_EducationType;int;Идентификатор типа учебного заведения.
+Id_EducationClass;int;Идентификатор класса учебного заведения.
+Id_EducationTypeName;int;Идентификатор имени типа учебного заведения.
+EducationOrganizationFullTypeName;string;Полное имя типа учебного заведения.
+EducationOrganizationShortTypeName;string;Короткое имя типа учебного заведения.
+Id_EducationClassName;int;Идентификатор имени класса учебного заведения.
+EducationOrganizationClassName;string;Имя класса учебного заведения.
+Id_Language;int;Идентификатор языка для названия типов и классов

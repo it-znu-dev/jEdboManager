@@ -1,0 +1,11 @@
+SessionGUID;String;GUID идентификатор сессиипользователя.
+UniversitySpecialitiesDateBegin;String;Дата началадействия записи. ФорматДД.ММ.ГГГГ ЧЧ:ММ:СС.
+UniversitySpecialitiesDateEnd;String;Дата окончаниядействия записи. Формат ДД.ММ.ГГГГ ЧЧ:ММ:СС.
+UniversityKode;String;GUID идентификатор учебного заведения.
+UniversityFacultetKode;String;GUID идентификаторфакультета учебного заведения.Параметр не обязателен, дляигнорирования параметра необходимо указать пустую строку.
+SpecCode;String;GUID идентификатор специальности.
+Id_Language;int;Идентификатор языка.
+Id_PersonRequestSeasonDetails;int;Идентификатор детализации для вступительной компании. В детализации вступительнойкомпании указывается форма обучения для специальности факультета и период приемазаявлений.
+UniversitySpecialitiesBudgetCount;int;Количество бюджетных мест для специальности факультета.
+UniversitySpecialitiesContractCount;int;Количество контрактных мест для специальности факультета.
+Id_Qualification;int;Идентификатор квалификационного уровня для специальности факультета

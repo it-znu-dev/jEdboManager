@@ -1,0 +1,12 @@
+;DUniversityCourses;
+Id_UniversityCourse;int;Идентификатор курсов
+UniversityKode;string;GUID идентификатор ВУЗа
+UniversityCourseCode;string;GUID идентификатор курса ВУЗа.
+UniversityCourseDateBegin;dateTime;Дата начала действия записи
+UniversityCourseDateEnd;dateTime;Дата окончания действия записи
+DateLastChange;dateTime;Дата последнего изменения записи
+Id_UniversityCourseName;int;Идентификатор названия курсов
+Id_Language;int;Идентификатор языка названий
+UniversityCourseName;string;Название курсов
+Id_PersonRequestSeasons;int;Глобальный идентификатор вступительной компании
+NamePersonRequestSeasons;string;Название вступительной компании

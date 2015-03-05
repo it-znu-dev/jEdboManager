@@ -1,0 +1,4 @@
+;DUniversityFacultetsTypes;
+Id_UniversityFacultetType;int;Идентификатор типа структурного подразделения
+UniversityFacultetTypeName;string;Название типа структурного подразделения
+DateLastChange;dateTime;Дата последнего изменения записи

@@ -1,0 +1,6 @@
+;DStreetTypes;
+Id_StreetType;int;Идентификатор типа улицы.
+Id_StreetTypeName;int;Идентификатор названия типа улицы.
+StreetTypeFullName;string;Полное название типа улицы.
+StreetTypeShortName;string;Краткое название типа улицы.
+Id_Language;int;Идентификатор языка для названия типов 

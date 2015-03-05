@@ -1,0 +1,16 @@
+;DSpecDirectionsSubjects;
+Id_SpecDirectionSubject;int;Идентификатор предмета для направления
+SpecDirectionsCode;string;GUID идентификатор направления
+Id_Subject;int;Идентификатор предмета
+Id_Language;int;Идентификатор языка названий
+SubjectName;string;Название предмета
+Id_PersonRequestSeasons;int;Идентификатор глобальной вступительной компании
+NamePersonRequestSeasons;string;Название глобальной вступительной компании
+GroupNo;int;Номер группы предметов
+SpecDirectionName;string;Название направлений
+SpecClasifierCode;string;Код направления по справочнику МОН
+SpecSpecialityCode;string;GUID идентификатор специальности
+SpecSpecialityClasifierCode;string;Код специальности по справочнику МОН
+SpecSpecialityName;string;Название специальности
+Id_Qualification;int;Идентификатор квалификационного уровня
+QualificationName;string;Название квалификационного уровня

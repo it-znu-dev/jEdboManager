@@ -1,0 +1,5 @@
+;DOlympiads;
+Id_Olimpiad;int;Идентификатор олимпиады
+Id_PersonRequestSeasons;int;Глобальный идентификатор вступительной компании
+OlimpiadName;string;Название олимпиады
+DateLastChange;DateTime;Дата последнего изменения данных об олимпиаде

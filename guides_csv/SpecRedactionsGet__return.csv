@@ -1,0 +1,5 @@
+;DSpecRedactions;
+Id_SpecRedactions;int;Идентификатор редакции.
+SpecRedactionName;string;Название редакции.
+SpecRedactionCode;string;Код редакции.
+DateLastChange;dateTime;Дата последнего изменения записи

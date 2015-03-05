@@ -1,0 +1,34 @@
+;DSpec;
+Id_Spec;int;Идентификатор специальности
+SpecCode;string;GUID идентификатор специальности, включающей в себя индустрию направление специальность и специализацию.
+SpecClasifierCode;string;Код специальности по классификации МОН
+SpecDateBegin;dateTime;Дата начала действия специальности
+SpecDateEnd;dateTime;Дата окончания действия специальности
+Id_SpecRedactions;int;Идентификатор специальности
+SpecRedactionCode;string;Код идентификатора специальности
+SpecRedactionName;string;Название редакции специальности
+Id_SpecIndastry;int;Идентификатор индустрии специальности
+SpecIndastryCode;string;GUID идентификатор индустрии
+SpecIndastryDateBegin;dateTime;Дата начала действия индустрии
+SpecIndastryDateEnd;dateTime;Дата окончания действия индустрии
+Id_SpecIndastryName;int;Идентификатор названия индустрии
+SpecIndastryName;string;Название индустрии
+Id_SpecDirections;int;Идентификатор направления специальности
+SpecDirectionsCode;string;GUID идентификатор направления специальности
+SpecDirectionsDateBegin;dateTime;Дата начала действия направления специальности
+SpecDirectionsDateEnd;dateTime;Дата окончания действия направления специальности
+Id_SpecDirectionName;int;Идентификатор названия направления специальности 
+SpecDirectionName;string;Название направления специальности
+Id_SpecSpeciality;int;Идентификатор специальности специальности
+SpecSpecialityCode;string;GUID идентификатор специальности специальности
+SpecSpecialityDateBegin;dateTime;Дата начала действия специальности специальности
+SpecSpecialityDateEnd;dateTime;Дата окончания действия специальности специальности
+Id_SpecSpecialityName;int;Идентификатор названия специальности специальности
+SpecSpecialityName;string;Название специальности специальности
+Id_Language;int;Идентификатор языка названий
+Id_SpecSpecialization;int;Идентификатор специализации специальности
+SpecSpecializationCode;string;GUID идентификатор специализации
+Id_SpecSpecializationName;int;Идентификатор названия специализации
+SpecSpecializationName;string;Название специализации
+SpecCodeDateLastChange;dateTime;Дата последнего изменения записи
+SpecIndastryClasifierCode;string;Код индустрии по классификации МОН

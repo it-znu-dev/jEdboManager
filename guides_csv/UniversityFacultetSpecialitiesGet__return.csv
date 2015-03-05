@@ -1,0 +1,41 @@
+;DUniversityFacultetSpecialities;
+Id_UniversitySpecialities;int;Идентификатор специальности ВУЗа
+UniversitySpecialitiesKode;string;GUID код специальности ВУЗа
+UniversitySpecialitiesDateBegin;dateTime;Дата начала действия записи
+UniversitySpecialitiesDateEnd;dateTime;Дата окончания действия записи
+UniversityKode;string;GUID код ВУЗа
+UniversityFullName;string;Полное название ВУЗа
+UniversityShortName;string;Краткое название ВУЗа
+UniversityFacultetKode;string;GUID код факультета ВУЗа
+UniversityFacultetFullName;string;Полное название факультета
+UniversityFacultetShortName;string;Краткое название факультета  SpecCode string GUID код специальности из функции SpecGet включающей в себя индустрию направление специальность и специализацию.
+SpecClasifierCode;string;Код специальности по классификации МОН
+Id_Language;int;Идентификатор языка названий
+SpecIndastryCode;string;GUID идентификатор индустрии специальности
+SpecIndastryName;string;Название индустрии специальности
+SpecDirectionsCode;string;GUID идентификатор направления специальности
+SpecDirectionName;string;Название направления специальности
+SpecSpecialityCode;string;GUID идентификатор специальности специальности
+SpecSpecialityName;string;Название специальности специальности
+SpecSpecializationCode;string;GUID идентификатор специализации
+SpecSpecializationName;string;Название специализации
+UniversitySpecialitiesContractCount;int;Количество контрактных мест для специальности ВУЗа
+Id_PersonRequestSeasons;int;Идентификатор вступительной компании
+NameRequestSeasons;string;Название вступительной компании
+Id_PersonRequestSeasonDetails;int;Идентификатор детализации вступительной компании
+Id_PersonEducationForm;int;Форма обучения для специальности ВУЗа
+PersonEducationFormName;string;Название формы обучения для специальности ВУЗа
+DateBeginPersonRequestSeason;DateTime;Дата начала действия приема заявок для формы обучения
+DateEndPersonRequestSeason;DateTime;Дата окончания действия приема заявок для формы обучения
+Id_Qualification;Int;Идентификатор квалификационного уровня, на который подаются заявления
+QualificationName;string;Название квалификационного уровня
+Subjects;string;Список предметов, для специальности факультета
+SpecSpecialityClasifierCode;string;Код специальности по классификатору МОН
+Quotas;string;Перечень квот заявки
+Id_Course;Int;Идентификатор учебного курса для специальности ВУЗа.
+DurationEducation;float;Длительность обучения для специальности ВУЗа. Формат, <количество лет>.<количество месяцев>. Например значение 2.05 указывает на то что срок обучения два года, пять месяцев.
+CourseName;string;Название учебного курса.
+UniversitySpecialitiesLicenseCountOld;int;Лицензионный объем, прошлые периоды.
+EducationDateBegin;DateTime;Дата начала обучения
+EducationDateEnd;DateTime;Дата окончания обучения
+IsSecondEducation;int;Флаг, указывающий на то что предложение для второго высшего образования.

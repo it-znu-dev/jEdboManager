@@ -1,0 +1,7 @@
+SessionGUID;String;GUID идентификатор сессии пользователя.
+Id_Language;int;Идентификатор языка для названий ВУЗов.
+ActualDate;String;Дата на которую берутся актуальные данные. Формат ДД.ММ.ГГГГ ЧЧ:ММ:СС.
+Id_PersonRequestSeasons;int;Идентификатор вступительной компании.
+UniversityKode;String;GUID идентификатор учебного заведения.
+SpecDirectionsCode;String;Параметр зарезервирован.
+SpecSpecialityCode;String;Параметр зарезервирован

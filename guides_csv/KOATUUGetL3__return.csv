@@ -1,0 +1,13 @@
+;DKOATUU;
+Id_KOATUU;int;Идентификатор КОАТУУ.
+KOATUUCode;string;Строка с десятизначным кодом населенного пункта.
+Type;string;Тип населенного пункта.
+Id_KOATUUName;int;Идентификатор названия населенного пункта
+KOATUUName;string;Название населенного пункта
+KOATUUFullName;string;Полное название населенного пункта, включая областьи район.
+KOATUUDateBegin;dateTime;Дата начала действия записи
+KOATUUDateEnd;dateTime;Дата окончания действия записи
+Id_Language;int;Идентификатор языка для названия населенных пунктов
+KOATUUCodeL1;string;КОАТУУ уровня 1
+KOATUUCodeL2;string;КОАТУУ уровня 2
+KOATUUCodeL3;string;КОАТУУ уровня 3

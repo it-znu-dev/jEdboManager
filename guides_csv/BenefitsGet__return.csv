@@ -1,0 +1,11 @@
+;DBenefits;
+Id_Benefit;int;Идентификатор льготы или поощрения.
+Id_BenefitGroup;int;Идентификатор группы льготы или поощрения
+Key;string;Ключ льготы или поощрения
+DateLastChange;dateTime;Дата последнего изменения записи
+BenefitDateBegin;dateTime;Дата начала действия льготы или поощрения
+BenefitDateEnd;dateTime;Дата окончания действия льготы или поощрения
+Id_BenefitName;int;Идентификатор названий льготы или поощрения.
+BenefitName;string;Название льготы.
+BenefitsGroupsName;string;Название группы льготы.
+Id_Language;int;Идентификатор языка названий

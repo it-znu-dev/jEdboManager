@@ -1,0 +1,3 @@
+;DLastError;
+LastErrorCode;int;Код ошибки
+LastErrorDescription;string;Описание ошибки.

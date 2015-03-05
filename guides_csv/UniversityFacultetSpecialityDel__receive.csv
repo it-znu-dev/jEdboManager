@@ -1,0 +1,2 @@
+SessionGUID;String;GUID идентификатор сессиипользователя.
+Id_UniversitySpecialities;int;Идентификатор специальностифакультета.

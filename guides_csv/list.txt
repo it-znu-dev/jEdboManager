@@ -1,0 +1,22 @@
+KOATUUGetL2
+KOATUUGetL3
+KOATUUAdd (???: return file)
+KOATUUEdit (???: return file)
+KOATUUDel  (???: return file)
+EducationTypesGet
+StreetTypesGet
+SpecGet
+SubjectsGet
+SpecDirectionsSubjectsGet
+UniversityFacultetSpecialitiesGet
+UniversityFacultetSpecialityAdd(???: return file)
+UniversityFacultetSpecialityDel (???: return file)
+UniversityCoursesGet
+UniversityCoursesAdd
+UniversityCoursesDel (???: return file)
+BenefitsGet
+OlympiadsAwardsGet
+QuotasGet
+UniversityFacultetSpecialitiesQuotasGet
+QualificationsGet
+QualificationGroupsGet

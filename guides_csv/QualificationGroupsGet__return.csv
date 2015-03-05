@@ -1,0 +1,3 @@
+;DQualificationGroups;
+Id_QualificationGroup;int;Идентификатор группы квалификационных уровней.
+QualificationGroupName;string;Название группыквалификационных уровней.

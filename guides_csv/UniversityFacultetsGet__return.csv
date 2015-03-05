@@ -1,0 +1,28 @@
+;DUniversityFacultets;
+Id_UniversityFacultet;int;Идентификатор факультета ВУЗа
+UniversityKode;string;GUID идентификатор ВУЗа
+UniversityFacultetKode;string;GUID идентификатор факультета ВУЗа
+UniversityFacultetDateBegin;dateTime;Дата начала действия записи
+UniversityFacultetDateEnd;dateTime;Дата окончания действия записи
+Id_UniversityFacultetName;int;Идентификатор названия факультета
+UniversityFacultetFullName;string;Полное название факультета
+UniversityFacultetShortName;string;Краткое название факультета
+Description;string;Комментарии
+Id_Language;int;Идентификатор языка названий
+IsAvailableForReceiptOfRequest;int;Флаг, указывающий, что структурное подразделение может участвовать во вступительной компании
+IsAvailableForBindStudentPersons;int;Флаг, указывающий, что к структурному подразделению можно «привязать» студента.
+IsAvailableForBindStaffPersons;int;Флаг, указывающий, что к структурному подразделению можно «привязать» сотрудника.
+Id_UniversityFacultetType;int;Идентификатор типа структурного подразделения.
+UniversityFacultetTypeName;string;Название идентификатора типа структурного подразделения.
+Id_UniversityFacultet_Parent;int;Идентификатор родительского структурного подразделения
+HId_UniversityFacultet;string;Значение позиции в дереве структурных подразделений.
+HId_UniversityFacultet_String;string;Текстовое значение позиции в дереве структурных подразделений.
+FacultetPostIndex;string;Почтовый индекс адреса структурного подразделения
+KOATUUCode;string;КОАТУУ код адреса структурного подразделения
+KOATUUName;string;Название населенного пункта адреса структурного подразделения
+KOATUUFullName;string;Полное название населенного пункта адреса структурного подразделения
+FacultetStreetName;string;Название улицы адреса структурного подразделения
+FacultetHouseNumbers;string;Номер строения адреса структурного подразделения
+MovedToAnowerUniversity;int;Флаг, указывающий на то что структурное подразделение переведено в учебное заведение
+Block;string;Флаг, указывающий на то что структурное подразделение заблокировано
+BlockDescription;string;Причина блокирования.

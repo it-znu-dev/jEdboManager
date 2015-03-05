@@ -1,0 +1,3 @@
+Id_UniversityCourse;int;Идентификатор курсов
+Id_UniversityCourseName;int;Идентификатор названия курсов
+UniversityCourseCode;string;GUID идентификатор курса ВУЗа.

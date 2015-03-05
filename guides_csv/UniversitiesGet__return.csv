@@ -1,0 +1,78 @@
+;DUniversities;
+Id_University;int;Идентификатор ВУЗа
+UniversityKode;string;GUID идентификатор вуза
+UniversityDateBegin;dateTime;Дата начала действия записи
+UniversityDateEnd;dateTime;Дата окончания действия записи
+EDRPO;string;Код ЕДРПО
+DateRegistration;dateTime;Дата регистрации ВУЗА
+UniversityPhone;string;Контактный номер телефона ВУЗА
+UniversityEMail;string;Контактный адрес e-mail ВУЗА
+Website;string;Web сайт ВУЗа
+UniversityBossPhone;string;Номер телефона директора
+UniversityBossEMail;string;Электронная почта директора
+Id_UniversityName;int;Идентификатор имен ВУЗа
+UniversityFullName;string;Полное название ВУЗа
+UniversityShortName;string;Краткое название ВУЗа
+KOATUUCode;string;Десятизначный КОАТУУ код населенного пункта
+PostIndex;string;Почтовый индекс
+KOATUUFullName;string;Полное название населенного пункта ВУЗа
+Id_StreetType;int;Идентификатор типа улицы
+StreetTypeFullName;string;Полное название типа улицы
+StreetTypeShortName;string;Краткое название типа улицы
+UniversityAdress;string;Адрес университета
+HouceNum;string;Номер дома
+UniversityBossLastName;string;Фамилия директора
+UniversityBossFirstName;string;Имя директора
+UniversityBossMidleName;string;Отчество директора
+Id_EducationType;int;Идентификатор типа учебного заведения
+Id_EducationClass;int;Идентификатор класса учебного заведения
+EducationOrganizationFullTypeName;string;Полное название типа учебного заведения
+EducationOrganizationShortTypeName;string;Краткое название типа учебного заведения
+EducationOrganizationClassName;string;Название класса учебного заведения
+Id_Language;int;Идентификатор языка названий
+Id_UniversityAcreditatin;int;Идентификатор записи об аккредитации ВУЗа
+Id_UniversityAcreditatinType;int;Идентификатор уровня аккредитации ВУЗа
+UniversitiyAcreditatinTypeCode;string;Код уровня аккредитации ВУЗа
+IsUniversityVerifed;int;Флаг, указывающий что данные учебного заведения верифицировано
+ExistNeedVerification;int;Количество нормативных документов учебного заведения которые требуют верификации оператором ЕДЭБО.
+Id_UniversityGovernanceType;int;Идентификатор подчиненности
+UniversityGovernanceTypeName;string;Название органа кому подчинено учебное заведение
+Id_UniversityRegistration;int;Идентификатор текущей регистрационной информации для учебного заведения
+Id_UniversityRegistrationType;int;Идентификатор типа текущей регистрационной информации
+UniversityRegistrationTypeName;string;Название типа текущей регистрационной информации
+Id_RegulationDocument;int;Идентификатор нормативного документа подтверждающего текущую регистрацию
+UniversityRegistrationDateBegin;dateTime;Дата начала действия текущей регистрации
+UniversityRegistrationDateEnd;dateTime;Дата окончания действия текущей регистрации
+UniversityRegistrationDateLastChange;dateTime;Дата последнего изменения данных текущей регистрации
+UniversityRegistrationIsActive;int;Флаг, указывающий, что текущая регистрация активна
+UniversityRegistrationusersCount;int;Количество пользователей учебного заведения, зарегистрированное в текущей регистрации
+Id_UniversityTypeOfFinansing;int;Идентификатор типа финансирования
+UniversityTypeOfFinansingName;string;Название типа финансирования
+UniversityKodeParent;string;GUID идентификатор родительского учебного заведения
+Id_UniversityPanent;int;идентификатор родительского учебного заведения
+UniversityFullNameParent;string;Название родительского учебного заведения
+KOATUUCodeU;string;Десятизначный КОАТУУ код населенного пункта юридического адреса
+PostIndexU;string;Почтовый индекс юридического адреса
+UniversityAdressU;string;юридический адрес
+Id_StreetTypeU;int;Идентификатор типа улицы юридического адреса
+HouceNumU;string;Номер дома юридического адреса
+Id_KOATUUU;int;Идентификатор кода коатуу юридического адреса
+KOATUUFullNameU;string;Полное название населенного пункта ВУЗа юридического адреса
+StreetTypeFullNameU;string;Полное название типа улицы юридического адреса
+Closed;int;Флаг, указывающий на то что учебное заведение заблокировано
+AllowAccessFromParetn;int;Флаг, указывающий на то что дан доступ для родительского вуза
+UniverityFacultetNumberKode;string;GUID идентификатор структурного подразделения переведенного в учебное заведение
+UniversityFacultetFullName;string;Название структурного подразделения переведенного в учебное заведение
+Id_UniversityJuristicalType;int;Идентификатор правового статуса учебного заведения
+UniversityJuristicalTypeName;string;Название правового статуса учебного заведения
+Id_UniversityBossOperatedType;int;Идентификатор типа документа, на основе которого действует руководитель
+UniversityBossOperatedTypeName;string;Название типа документа, на основе которого действует руководитель
+BossPost;string;Должность руководителя.
+WarrantNumber;string;Номер доверенности.
+WarrantDate;dateTime;Дата доверенности.
+Id_UniversityCloseStatusTypes;int;Идентификатор причины блокирования учебного заведения
+UniversityCloseStatusTypesName;string;Название причины блокирования учебного заведения
+Give23Nk;int;Флаг, указывающий на то что учебное заведение формирует форму 23нк
+GiveRaiting;int;Флаг, указывающий на то что учебное заведение формирует рейтинги
+Id_UniversityType;int;Идентификатор типа учебного заведения
+UniversityTypeName;string;Название типа учебного заведения.

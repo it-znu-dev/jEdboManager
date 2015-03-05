@@ -1,0 +1,4 @@
+;DQualificationsEx;
+Id_Qualification;int;Идентификатор квалификационного уровня.
+QualificationName;String;Название квалификационного уровня.
+QualificationDateLastChange;dateTime;Дата последнего изменения квалификационного уровня
