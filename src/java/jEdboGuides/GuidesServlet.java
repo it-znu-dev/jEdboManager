@@ -29,7 +29,12 @@ public class GuidesServlet extends HttpServlet {
   public static HashMap<String,String> jGuids =  new HashMap<>();
   public String jGuid;
   public final String actionName = "_$action";
-  public jSoapCommon.SoapExecutor soapEx = new jSoapCommon.SoapExecutor();
+  
+  public jSoapCommon.GuidesSoapRealExecutor soapEx     
+          = new jSoapCommon.GuidesSoapRealExecutor();
+  
+  public jSoapCommon.GuidesSoapTestExecutor soapTestEx 
+          = new jSoapCommon.GuidesSoapTestExecutor();
   
   protected String getCurrentTime(){
     DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -114,8 +119,14 @@ public class GuidesServlet extends HttpServlet {
       return ;
     }
     this._debug("Виклик методу execEdboSoapFunc для SOAP-функції '"+func_name+"' ...");
-
-    JSONObject jret = this.soapEx.execEdboSoapFunc(jo, params, err);
+    JSONObject jret;
+    if (params.containsKey("test")){
+      this._debug("Використовується ТЕСТОВА БАЗА ЄДЕБО.");
+      jret = this.soapTestEx.execEdboSoapFunc(jo, params, err);
+    } else {
+      this._debug("Використовується ДІЙСНА БАЗА ЄДЕБО.");
+      jret = this.soapEx.execEdboSoapFunc(jo, params, err);
+    }
 
     this._debug("Заверешено виклик методу execEdboSoapFunc.");
     if (jret == null){
@@ -137,9 +148,9 @@ public class GuidesServlet extends HttpServlet {
     }
     if (func_name.equals("Logout")){
       String guid = GuidesServlet.jGuids.get(session.getId());
-      if (guid != null){
+      if (guid != null && !guid.isEmpty()){
         this._debug("Знищення SessionGUID="+guid+" в пам'яті Http-сесії: X("+session.getId()+")X");
-        GuidesServlet.jGuids.remove(session.getId());
+        GuidesServlet.jGuids.put(session.getId(),"");
         this.jGuid = null;
       }
     }

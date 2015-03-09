@@ -5,8 +5,6 @@
  */
 package jSoapCommon;
 
-import jEdboGuides.EDBOGuides;
-import jEdboGuides.EDBOGuidesSoap;
 import jEdboGuides.GuidesServlet;
 import java.beans.Introspector;
 import java.lang.reflect.Constructor;
@@ -28,14 +26,9 @@ import org.json.JSONObject;
  *
  * @author sysadmin
  */
-public class SoapExecutor {
-  public EDBOGuides edbo_guides;
-  public EDBOGuidesSoap soap;
-  
-  public SoapExecutor(){
-    this.edbo_guides = new EDBOGuides();
-    this.soap = this.edbo_guides.getEDBOGuidesSoap();
-  }
+public class GuidesSoapExecutor {
+  public Object edbo_guides;
+  public Object soap;
   
   protected String getCurrentTime(){
     DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -59,7 +52,6 @@ public class SoapExecutor {
     }
   }
   
-  // <editor-fold defaultstate="collapsed" desc="Допоміжні функції для взаємодії з базою ЄДЕБО через SOAP. Click on the + sign on the left to edit the code.">
   /**
    * Формування в залежності від способу взаємодії (json|jsonp)
    * відповіді дії сервлету
@@ -539,7 +531,7 @@ public class SoapExecutor {
     if (return_val > 0){
       this._debug("Обробка випадку, коли повернулось значення більше нуля ... ");
       try {
-        jo.put("message", "Виконання функції завершилось успішно. Повернулось значення: "
+        jo.put("message", "Виконання функції завершилось. Повернулось значення: "
                 +String.valueOf(return_val));
       } catch (JSONException ex) {
         Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -547,10 +539,13 @@ public class SoapExecutor {
       }
     } else {
       this._debug("Обробка випадку, коли повернулось значення менше нуля або нуль ... ");
-      if (!func_name.equals("GetLastError")){
-        return this.execEdboSoapFunc(err_func, params, err_func);
+      try {
+        jo.put("message", "Виконання функції завершилось. Повернулось значення: "
+                +String.valueOf(return_val));
+      } catch (JSONException ex) {
+        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
       }
-      return this._jsonError("Сталася дивна помилка: помилка при запиті на отримання інформації про помилку.");
     }
     return jo;
   }
@@ -711,6 +706,6 @@ public class SoapExecutor {
       }
       
     return jo;
-  }// </editor-fold>
+  }
 
 }

@@ -11,6 +11,7 @@ public class SessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent sessionEvent) {
         String sess = sessionEvent.getSession().getId();
+        GuidesServlet.jGuids.put(sess,"");
         System.out.println("Session Created:: ID="+sess
                 +" (now count of connections = "+GuidesServlet.jGuids.size()+")");
     }

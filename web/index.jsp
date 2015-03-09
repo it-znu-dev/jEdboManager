@@ -529,18 +529,21 @@
 <body data-spy="scroll" data-target="#myScrollSpy">
   <div class="mycontainer">
     <div class="row">
-      <div class="col-xs-12" id="__title">
-        <center>Довідники ЄДЕБО</center>
-        <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
-      </div>
       
       <div class="col-xs-2" id="myScrollSpy">
         <ul class="nav nav-tabs nav-stacked very-small" data-spy="affix" data-offset-top="5">
         </ul>
       </div>
       
-      <div class="col-xs-10" id="func_block">
-        
+      <div class="col-xs-10">
+        <div class="col-xs-12" id="__title">
+          <center>Довідники ЄДЕБО</center>
+          <center><a href="index-test.jsp">Довідники ЄДЕБО (ТЕСТОВА БАЗА)</a></center>
+          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
+        </div>
+        <div class="col-xs-12" id="func_block">
+          
+        </div>
       </div>
     </div>
   </div>

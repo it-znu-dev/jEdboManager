@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://edbo.znu.edu.ua:8080/EDBOGuides/EDBOGuides.asmx?WSDL" uri="src/conf/xml-resources/web-service-references/EDBOGuides/wsdl/edbo.znu.edu.ua_8080/EDBOGuides/EDBOGuides.asmx.wsdl"/>
+    <system systemId="http://test.edbo.gov.ua:8080/EDBOGuides/EDBOGuides.asmx?wsdl" uri="src/conf/xml-resources/web-service-references/EDBOGuides_1/wsdl/test.edbo.gov.ua_8080/EDBOGuides/EDBOGuides.asmx.wsdl"/>
 </catalog>
