@@ -277,6 +277,9 @@
                 ];
                 for (var param in response.head){
                   if (response.head.hasOwnProperty(param)) {
+                    if (response.head[param].name === ""){
+                      continue;
+                    }
                     var param_type = response.head[param].type.replace("string","varchar(255)");
                     table_attrs.push("  "+param+" "+param_type
                             +" comment '"+response.head[param].description.replace(/'/g,"`")+"'");
@@ -395,7 +398,7 @@
                   );
                 }
                 if (func_info.receive[j].name === "UniversityKode"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("ab1bc732-51f3-475c-bcfe-368363369020");
+                  $("#"+func_name+"_"+func_info.receive[j].name).val("d72f14c9-4b9d-484c-ba9d-453bbbfd148f");
                 }
                 if (func_info.receive[j].name === "User"){
                   $("#"+func_name+"_"+func_info.receive[j].name).val("davidovskij.v@edbo.gov.ua");
@@ -496,7 +499,7 @@
                     }
                     for (var i = 0; i < data.length; i++){
                       var func_name = data[i].name;
-                      if (func_name.match(/Login\b|Logout\b|GetLastError\b/)){
+                      if (func_name.match(/Login\b|Logout\b/)){
                         continue;
                       }
                       drawInputElements(func_name, data[i]);

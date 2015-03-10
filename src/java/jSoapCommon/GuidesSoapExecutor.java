@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +45,7 @@ public class GuidesSoapExecutor {
   protected JSONObject _jsonError(String err){
     JSONObject jo = new JSONObject();
     try {
-      jo.put("error", "Сталася дивна помилка: помилка при запиті на отримання інформації про помилку.");
+      jo.put("error", err);
       return jo;
     } catch (JSONException ex) {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -322,6 +323,128 @@ public class GuidesSoapExecutor {
   }
   
   /**
+   * Повертає SQL-код для формування структури таблиці значень, що повертає SOAP-функція
+   * @param func JSON-об'єкт даних SOAP-методу
+   * @return SQL-string
+   */
+  public String getSqlTableStruct(JSONObject func){
+    String sql_str = "";
+    String func_name, table_name;
+    JSONArray ret_params;
+    try {
+       func_name = func.getString("name");
+    } catch (JSONException ex) {
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+    table_name = func_name.replace("Get", "");
+    sql_str += "drop table if exists "+table_name+" ;\n";
+    sql_str += "create table "+table_name+"(\n";
+    sql_str += "  id int primary key auto_increment,\n";
+    
+    try {
+      ret_params = func.getJSONArray("return");
+    } catch (JSONException ex) {
+      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+    for (int i = 0; i < ret_params.length(); i++){
+      JSONObject jret;
+      String name,type,descr;
+      try {
+        jret = ret_params.getJSONObject(i);
+        name = jret.getString("name");
+        type = jret.getString("type").replace("string","varchar(255)");
+        descr = jret.getString("description");
+        if (name.isEmpty()){
+          continue;
+        }
+        sql_str += "  "+name
+                +" "+type
+                +" comment '"+descr.replaceAll("'", "`")+"'";
+        if (i < ret_params.length()-1){
+          sql_str += ",\n";
+        } else {
+          sql_str += "\n);\n";
+        }
+      } catch (JSONException ex) {
+        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+      }
+    }
+    return sql_str;
+  }
+  
+  /**
+   * Повертає SQL-код для формування даних таблиці значень, що повертає SOAP-функція
+   * @param func JSON-об'єкт даних SOAP-методу
+   * @param result JSON-об'єкт - результат методу packResultsToJson
+   * @return SQL-string
+   */
+  public String getSqlTableData(JSONObject func, JSONObject result){
+    String sql_str = "";
+    String func_name, table_name;
+    JSONArray ret_vals;
+    try {
+       ret_vals = result.getJSONArray("body");
+    } catch (JSONException ex) {
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+    try {
+       func_name = func.getString("name");
+    } catch (JSONException ex) {
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+    table_name = func_name.replace("Get", "");
+
+    for (int i = 0; i < ret_vals.length(); i++){
+      JSONObject jo;
+      try {
+        jo = ret_vals.getJSONObject(i);
+        if (i == 0){
+          sql_str += "insert into "+table_name+" (\n";
+          Iterator iter = jo.keys();
+          for (Object obj=iter.next();(obj != null);obj=iter.next()){
+            String key = (String)obj;
+            sql_str += key;
+            if (iter.hasNext()){
+              sql_str += ",\n";
+            } else {
+              break;
+            }
+          }
+          sql_str += "\n)\n values \n";
+        }
+        Iterator iter = jo.keys();
+        sql_str += "(\n";
+        for (Object obj=iter.next();(obj != null);obj=iter.next()){
+          String key = (String)obj;
+          String val = String.valueOf(jo.get(key));
+          sql_str += "'" + val.replace("'", "`") + "'";
+          if (iter.hasNext()){
+            sql_str += ",\n";
+          } else {
+            break;
+          }
+        }
+        sql_str += "\n)";
+        if (i < ret_vals.length() - 1){
+          sql_str += ",\n";
+        } else {
+          sql_str += ";\n";
+        }
+        
+      } catch (JSONException ex) {
+        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+      }
+    }
+    return sql_str;
+  }
+  
+  /**
    * Упакування результатів виконання SOAP-функції у JSON-об'єкт
    * @param func JSON-об'єкт даних SOAP-методу
    * @param edbo_type назва класу, що повертається SOAP-функцією
@@ -334,31 +457,45 @@ public class GuidesSoapExecutor {
       return this._jsonError("Сталася помилка: проблеми з методом "+"'get"+edbo_type.replace("ArrayOf", "")+"'");
     }
     JSONArray ja = new JSONArray();
+    //head
     JSONObject jStruct = new JSONObject();
-    for (Object item : items) {
-      JSONObject jItems = new JSONObject();
-      JSONArray ret_params = new JSONArray();
+    JSONArray ret_params = new JSONArray();
+    try {
+      ret_params = func.getJSONArray("return");
+    } catch (JSONException ex) {
+      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
+    for (int i = 0; i < ret_params.length(); i++){
+      JSONObject jret;
+      String name;
       try {
-        ret_params = func.getJSONArray("return");
+        jret = ret_params.getJSONObject(i);
+        name = jret.getString("name");
+        if (name.isEmpty()){
+          continue;
+        }
+        jStruct.put(name, jret);
       } catch (JSONException ex) {
         Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
+    }
+    //body
+    for (Object item : items) {
+      JSONObject jItems = new JSONObject();
       for (int i = 0; i < ret_params.length(); i++){
         JSONObject jret;
-        String name="", type="", descr="";
+        String name;
         try {
           jret = ret_params.getJSONObject(i);
           name = jret.getString("name");
-          type = jret.getString("type");
-          descr = jret.getString("description");
-          jStruct.put(name, jret);
+          if (name.isEmpty()){
+            continue;
+          }
         } catch (JSONException ex) {
           Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
           return null;
-        }
-        if (name.isEmpty()){
-          continue;
         }
         String $pref = "get";
         String $method_name = name.replace("_","");
@@ -466,8 +603,24 @@ public class GuidesSoapExecutor {
     }
     List<Object> items = (List<Object>)objGet;
     jo = this.packResultsToJson(func,edbo_type,items);
+    if (func_name.matches("^.+Get(.{1,4})?$")){
+      // + SQL
+      String sql = "";
+      String sqlStruct = this.getSqlTableStruct(func);
+      String sqlData = this.getSqlTableData(func,jo);
+      if (sqlStruct != null && sqlData != null){
+        sql = sqlStruct + sqlData;
+      }
+      try {
+        jo.put("sql", sql);
+      } catch (JSONException ex) {
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      //
+    }
     return jo;
   }
+  
   
   /**
    * Обробка випадку, коли SOAP-функція повертає ціле число
@@ -491,14 +644,27 @@ public class GuidesSoapExecutor {
     }
     this._debug("З`ясовано: SOAP-функція повертає ціле значення: ввімкнення обробки цього випадку ...");
     int return_val = 0;
+    String method_soap_name;
+    if (func_name.contains("KOATUU")){
+      method_soap_name = func_name.replace("KOATUU", "koatuu");
+    } else {
+      method_soap_name = Introspector.decapitalize(func_name);
+    }
     this._debug("Виклик функції invokeMethod з параметрами "
             +"\n\tSOAP-object: "+this.soap.toString()
-            +"\n\tfunc_name: "+Introspector.decapitalize(func_name)
+            +"\n\tfunc_name: "+method_soap_name
             +"\n\tparamTypes: "+paramTypes.toString()
             +"\n\tparamValues: "+paramValues.toString()
             +"\n...");
-    String str = String.valueOf(this.invokeMethod((Object)this.soap, 
-              Introspector.decapitalize(func_name), paramTypes, paramValues));
+    Object obj = this.invokeMethod((Object)this.soap, 
+              method_soap_name, paramTypes, paramValues);
+    if (obj == null){
+      return this._jsonError("Очікувалось ціле число, але повернулося пусте значення (NULL).");
+    }
+    String str = String.valueOf(obj);
+    if (obj.getClass().getSimpleName().equals("String")){
+      return this._jsonError(str);
+    }
     try {
       return_val = Integer.parseInt(str);
     } catch (NumberFormatException ex){

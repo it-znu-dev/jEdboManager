@@ -5,8 +5,6 @@
  */
 package jSoapCommon;
 
-import jEdboGuides.EDBOGuides;
-
 
 /**
  *
@@ -15,8 +13,14 @@ import jEdboGuides.EDBOGuides;
 public class GuidesSoapRealExecutor extends GuidesSoapExecutor {
   
   public GuidesSoapRealExecutor(){
-    this.edbo_guides = new EDBOGuides();
-    this.soap = (((EDBOGuides)this.edbo_guides).getEDBOGuidesSoap());
+    this._debug("Створення об’єкта класу jEdboGuides.EDBOGuides ...");
+    jEdboGuides.EDBOGuides eg = new jEdboGuides.EDBOGuides();
+    this._debug("Створено!");
+    this._debug("Створення об’єкта класу jEdboGuides.EDBOGuidesSoap ...");
+    jEdboGuides.EDBOGuidesSoap egs = eg.getEDBOGuidesSoap();
+    this._debug("Створено!");
+    this.edbo_guides = eg;
+    this.soap = egs;
   }
   
 }

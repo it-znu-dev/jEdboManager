@@ -29,6 +29,7 @@ public class GuidesServlet extends HttpServlet {
   public static HashMap<String,String> jGuids =  new HashMap<>();
   public String jGuid;
   public final String actionName = "_$action";
+  public JSONObject koatuuJSON = new JSONObject();
   
   public jSoapCommon.GuidesSoapRealExecutor soapEx     
           = new jSoapCommon.GuidesSoapRealExecutor();
@@ -50,7 +51,7 @@ public class GuidesServlet extends HttpServlet {
   protected JSONObject _jsonError(String err){
     JSONObject jo = new JSONObject();
     try {
-      jo.put("error", "Сталася дивна помилка: помилка при запиті на отримання інформації про помилку.");
+      jo.put("error", err);
       return jo;
     } catch (JSONException ex) {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,24 +100,24 @@ public class GuidesServlet extends HttpServlet {
    * @param out екземпляр класу PrintWriter
    * @throws JSONException 
    */
-  public void execSoapFunc(JSONObject func, JSONObject err, 
+  public JSONObject execSoapFunc(JSONObject func, JSONObject err, 
           HashMap <String, String> params, String callback, 
           HttpSession session, PrintWriter out) throws JSONException{
-    JSONObject jo = func;
+    JSONObject jerr = new JSONObject(),jo = func;
     String func_name = func.getString("name");
     if (this.jGuid != null && !this.jGuid.isEmpty() && func_name.equals("Login")){
-      jo.put("error","Дія заборонена для авторизованого користувача");
-      out.println(this.jResponseString(callback, jo));
+      jerr.put("error","Дія заборонена для авторизованого користувача");
+      out.println(this.jResponseString(callback, jerr));
       this._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
       this._debug("=========================");
-      return ;
+      return jerr;
     }
     if ((this.jGuid == null || this.jGuid.isEmpty()) && !func_name.equals("Login")){
-      jo.put("error","Дія заборонена для НЕавторизованого користувача");
-      out.println(this.jResponseString(callback, jo));
+      jerr.put("error","Дія заборонена для НЕавторизованого користувача");
+      out.println(this.jResponseString(callback, jerr));
       this._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
       this._debug("=========================");
-      return ;
+      return jerr;
     }
     this._debug("Виклик методу execEdboSoapFunc для SOAP-функції '"+func_name+"' ...");
     JSONObject jret;
@@ -136,7 +137,7 @@ public class GuidesServlet extends HttpServlet {
               jret));
       this._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
       this._debug("=========================");
-      return ;
+      return jerr;
     }
     if (func_name.equals("Login") && jret.has("guid")){
       String guid = jret.getString("guid");
@@ -158,6 +159,90 @@ public class GuidesServlet extends HttpServlet {
             jret));
     this._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
     this._debug("=========================");
+    return jerr;
+  }
+  
+  
+  /**
+   * 
+   * @param koatuu1
+   * @param koatuu2
+   * @param koatuu3
+   * @param err
+   * @param callback
+   * @param session
+   * @param out
+   * @param level
+   * @param add_param
+   * @return 
+   */
+  public JSONObject koatuuExecSoap(JSONObject koatuu1, 
+          JSONObject koatuu2, JSONObject koatuu3, 
+          JSONObject err,  String callback, 
+          HttpSession session, PrintWriter out,
+          int level, String add_param){
+    try {
+      JSONObject jret,  jK = new JSONObject();
+      JSONArray jA = new JSONArray();
+      JSONObject koatuu = null;
+      HashMap <String,String> params = new HashMap();
+      
+      params.put("SessionGUID", this.jGuid);
+      params.put("ActualDate", this.getCurrentTime());
+      params.put("Id_Language", "1");
+      
+      if (level == 1){
+        koatuu = koatuu1;
+      }
+      if (level == 2){
+        koatuu = koatuu2;
+        params.put("KOATUUCodeL1", add_param);
+      }
+      if (level == 3){
+        koatuu = koatuu3;
+        params.put("KOATUUCodeL2", add_param);
+        params.put("NameMask", "");
+      }
+      
+      
+      jret = this.execSoapFunc(koatuu1,err,params,callback, session, out);
+      if (jret.has("body")){
+        JSONArray jret_arr = jret.getJSONArray("body");
+        if (level == 1){
+          this.koatuuJSON.put("head", jret.get("head"));
+          this.koatuuJSON.put("body", new JSONArray());
+        } else {
+          JSONArray koatuuJSON_arr = this.koatuuJSON.getJSONArray("body");
+          //Я остановился тут!!!
+          //koatuuJSON_arr.
+        }
+        for (int i = 0; i < jret_arr.length(); i++){
+          JSONObject jitem = jret_arr.getJSONObject(i);
+          String add__param = "";
+          if (level == 1){
+            koatuu = koatuu2;
+            add__param = jitem.getString("KOATUUCodeL1");
+          }
+          if (level == 2){
+            koatuu = koatuu3;
+            add__param = jitem.getString("KOATUUCodeL2");
+          }
+          if (level < 3){
+            this.koatuuExecSoap(koatuu1, 
+              koatuu2, koatuu3, err, callback, 
+              session,  out,
+              level+1, add__param);
+          }
+        }
+      }
+      return null;
+      //!!!!
+    } catch (JSONException ex) {
+      this._debug("Сталася помилка під час виклику методу `execSoapFunc` .");
+      this._debug("ЗАВЕРШЕНО з помилкою ||||||||||||||| "+this.getCurrentTime());
+      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      return null;
+    }
   }
   
   /**
@@ -173,6 +258,7 @@ public class GuidesServlet extends HttpServlet {
           throws ServletException, IOException {
     
     JSONObject calling_func = null;
+    JSONObject koatuu1 = null ,koatuu2 = null ,koatuu3 = null;
     JSONObject err = null;
     
     this._debug("=========================");
@@ -268,6 +354,18 @@ public class GuidesServlet extends HttpServlet {
           this._debug("Знайшли JSON-інфо для '"+func_name+"' (#"+String.valueOf(i)+")");
           calling_func = jo;
         }
+        if (action.equals("jKOATUUGetAll") && func_name.equals("KOATUUGetL1")){
+          this._debug("Знайшли JSON-інфо для '"+func_name+"' (#"+String.valueOf(i)+")");
+          koatuu1 = jo;
+        }
+        if (action.equals("jKOATUUGetAll") && func_name.equals("KOATUUGetL2")){
+          this._debug("Знайшли JSON-інфо для '"+func_name+"' (#"+String.valueOf(i)+")");
+          koatuu2 = jo;
+        }
+        if (action.equals("jKOATUUGetAll") && func_name.equals("KOATUUGetL3")){
+          this._debug("Знайшли JSON-інфо для '"+func_name+"' (#"+String.valueOf(i)+")");
+          koatuu3 = jo;
+        }
       }
       //////
       
@@ -280,15 +378,20 @@ public class GuidesServlet extends HttpServlet {
       if (calling_func != null){
         try {
           //!!!!
+          
           this.execSoapFunc(calling_func,err,params,callback, session, out) ;
           return ;
           //!!!!
         } catch (JSONException ex) {
-          this._debug("Сталася помилка під час виконання виразу `func_name = jo.getString(\"name\");` .");
+          this._debug("Сталася помилка під час виклику методу `execSoapFunc` .");
           this._debug("ЗАВЕРШЕНО з помилкою ||||||||||||||| "+this.getCurrentTime());
           Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
           return ;
         }
+      }
+      
+      if (action.equals("jKOATUUGetAll")){
+
       }
       
       this._debug("Виведення результатів виконання методу getJsonEdboGuidesFuncList()");

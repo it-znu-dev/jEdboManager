@@ -268,56 +268,8 @@
               
             var drawSQLCode = function(func_name,response){
               var sql_str = "";
-              if (func_name[0] !== 'j' && func_name.match(/^.+Get(.{1,4})?$/)){
-                var table_name = func_name.replace("Get","");
-                sql_str += "drop table if exists "+table_name+" ;\n";
-                sql_str += "create table "+table_name+"(\n";
-                var table_attrs = [
-                  "  id int primary key auto_increment" //-- serial for postgres
-                ];
-                for (var param in response.head){
-                  if (response.head.hasOwnProperty(param)) {
-                    var param_type = response.head[param].type.replace("string","varchar(255)");
-                    table_attrs.push("  "+param+" "+param_type
-                            +" comment '"+response.head[param].description.replace(/'/g,"`")+"'");
-                  }
-                }
-                sql_str += table_attrs.join(",\n") + "\n);\n\n";
-                for (var i = 0; i < response.body.length; i++){
-                  var ins_vals = [];
-                  if (i === 0){
-                    var ins_cols = [];
-                    sql_str += "insert into "+table_name+" (";
-                    for (var param in response.body[i]){
-                      if (response.body[i].hasOwnProperty(param)) {
-                        ins_cols.push(param);
-                      }
-                    }
-                    sql_str += ins_cols.join(",") + ") values \n"
-                  }
-                  for (var param in response.body[i]){
-                    if (response.body[i].hasOwnProperty(param)) {
-                      var ins_val = (
-                        (response.body[i][param].length)? 
-                          "'"+response.body[i][param].replace(/'/g,"`")+"'"
-                          :  "''"
-                      );
-                      if (response.head[param].type === "int"){
-                        ins_val = '\''+parseInt(response.body[i][param],10)+'\'';
-                        if (ins_val === '\'NaN\''){
-                          ins_val = '0';
-                        }
-                      }
-                      ins_vals.push(ins_val);
-                    }
-                  }
-                  sql_str += "("+ins_vals.join(",") + ")";
-                  if (i < response.body.length-1){
-                    sql_str += ",\n";
-                  } else {
-                    sql_str += ";\n\n";
-                  }
-                }
+              if (func_name[0] !== 'j' && typeof(response.sql) !== "undefined"){
+                sql_str = response.sql;
                 $("#block-sql"+func_name).html(
                   "<a href='#' onclick='$(\"#sql"+func_name+"\").slideToggle();return false;'>"
                   +"[SQL code]"
