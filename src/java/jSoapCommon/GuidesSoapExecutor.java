@@ -38,7 +38,7 @@ public class GuidesSoapExecutor {
     return actual_datetime;
   }
   
-  protected void _debug(String info){
+  public static void _debug(String info){
     System.out.println(info);
   }
   
@@ -106,13 +106,13 @@ public class GuidesSoapExecutor {
     } catch (NoSuchMethodException ex) {
       err = "! Помилка: метод '"+methodName+"' не існує для класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     } catch (SecurityException ex) {
       err = "! Помилка: метод '"+methodName+"' не дозволено викликати для екземплярів класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     }
@@ -121,7 +121,7 @@ public class GuidesSoapExecutor {
     } catch (InvocationTargetException | IllegalAccessException ex) {
       err = "! Помилка: проблеми з методом '"+methodName+"' класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     }
@@ -143,13 +143,13 @@ public class GuidesSoapExecutor {
     } catch (NoSuchMethodException ex) {
       err = "! Помилка: метод '"+methodName+"' не існує для класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     } catch (SecurityException ex) {
       err = "! Помилка: метод '"+methodName+"' не дозволено викликати для екземплярів класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     }
@@ -158,7 +158,7 @@ public class GuidesSoapExecutor {
     } catch (InvocationTargetException | IllegalAccessException ex) {
       err = "! Помилка: проблеми з методом '"+methodName+"' класу '"
               +o.getClass().getSimpleName()+"'.";
-      this._debug(err);
+      GuidesSoapExecutor._debug(err);
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return err;
     }
@@ -202,7 +202,7 @@ public class GuidesSoapExecutor {
         }
       }
     }
-    this._debug("Тип даних зворотнього звязку: "+retClassName);
+    GuidesSoapExecutor._debug("Тип даних зворотнього звязку: "+retClassName);
     return retClassName;
   }
   
@@ -289,36 +289,33 @@ public class GuidesSoapExecutor {
   public Object createClassInstanceByName(String className){
     Class<?> classItself = null;
     JSONObject jo = new JSONObject();
-    this._debug("Створення класу "+className+" ...");
     try {  
       classItself = Class.forName(className);
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Клас '"+className+"' не знайдено");
     }
-    this._debug("Створено клас "+className);
+    GuidesSoapExecutor._debug("Створено клас "+className);
 
     Constructor<?> classConstructor;
 
-    this._debug("Створення конструктора класу "+className+" ...");
     try {
       classConstructor= classItself.getConstructor();
     } catch (NoSuchMethodException | SecurityException ex) {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Клас '"+className+"' не ініціалізується.");
     }
-    this._debug("Створено конструктор класу '"+className+"'");
+    GuidesSoapExecutor._debug("Створено конструктор класу '"+className+"'");
 
     Object classInstance;
 
-    this._debug("Створення екземпляру класу "+className+" ...");
     try {
       classInstance= classConstructor.newInstance();
     } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не вдалося створити екземпляр класу '"+className+"' .");
     }
-    this._debug("Створено екземпляр класу "+className);
+    GuidesSoapExecutor._debug("Створено екземпляр класу "+className);
     return classInstance;
   }
   
@@ -553,7 +550,7 @@ public class GuidesSoapExecutor {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
-    this._debug("З`ясовано: SOAP-функція повертає масив: ввімкнення обробки цього випадку ...");
+    GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає масив: ввімкнення обробки цього випадку ...");
     Object edboClass_arr_instance = this.createClassInstanceByName("jEdboGuides."+edbo_type);
     Object edboClass_instance = this.createClassInstanceByName("jEdboGuides."+edbo_type.replace("ArrayOf", ""));
     if (edboClass_arr_instance == null){
@@ -576,8 +573,8 @@ public class GuidesSoapExecutor {
     } else {
       method_soap_name = Introspector.decapitalize(func_name);
     }
-    this._debug("Заміна  "+func_name+" --> "+method_soap_name);
-    this._debug("Виклик функції invokeMethod з параметрами "
+    GuidesSoapExecutor._debug("Заміна  "+func_name+" --> "+method_soap_name);
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod з параметрами "
             +"\n\tSOAP-object: "+this.soap.toString()
             +"\n\tfunc_name: "+method_soap_name
             +"\n\tparamTypes: "+paramTypes.toString()
@@ -585,9 +582,9 @@ public class GuidesSoapExecutor {
             +"\n...");
 
     edboClass_arr_instance = this.invokeMethod((Object)this.soap, method_soap_name, paramTypes, paramValues);
-    this._debug("Виклик функції invokeMethod завершено ");
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod завершено ");
     if (edboClass_arr_instance == null && !func_name.equals("GetLastError")){
-      this._debug("Виклик функції invokeMethod завершено з пустим результатом: виклик GetLastError ...");
+      GuidesSoapExecutor._debug("Виклик функції invokeMethod завершено з пустим результатом: виклик GetLastError ...");
       return this.execEdboSoapFunc(err_func, params, err_func);
     }
     if (edboClass_arr_instance == null && func_name.equals("GetLastError")){
@@ -596,28 +593,13 @@ public class GuidesSoapExecutor {
     if (edboClass_arr_instance.getClass().getSimpleName().equals("String")){
       return this._jsonError((String)edboClass_arr_instance);
     }
-    this._debug("Обробка результатів виклику функції invokeMethod ... ");
+    GuidesSoapExecutor._debug("Обробка результатів виклику функції invokeMethod ... ");
     Object objGet = this.invokeMethod(edboClass_arr_instance,"get"+edbo_type.replace("ArrayOf", ""));
     if (objGet.getClass().getSimpleName().equals("String")){
       return this._jsonError((String)objGet);
     }
     List<Object> items = (List<Object>)objGet;
     jo = this.packResultsToJson(func,edbo_type,items);
-    if (func_name.matches("^.+Get(.{1,4})?$")){
-      // + SQL
-      String sql = "";
-      String sqlStruct = this.getSqlTableStruct(func);
-      String sqlData = this.getSqlTableData(func,jo);
-      if (sqlStruct != null && sqlData != null){
-        sql = sqlStruct + sqlData;
-      }
-      try {
-        jo.put("sql", sql);
-      } catch (JSONException ex) {
-        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
-      }
-      //
-    }
     return jo;
   }
   
@@ -642,7 +624,7 @@ public class GuidesSoapExecutor {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
-    this._debug("З`ясовано: SOAP-функція повертає ціле значення: ввімкнення обробки цього випадку ...");
+    GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає ціле значення: ввімкнення обробки цього випадку ...");
     int return_val = 0;
     String method_soap_name;
     if (func_name.contains("KOATUU")){
@@ -650,7 +632,7 @@ public class GuidesSoapExecutor {
     } else {
       method_soap_name = Introspector.decapitalize(func_name);
     }
-    this._debug("Виклик функції invokeMethod з параметрами "
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod з параметрами "
             +"\n\tSOAP-object: "+this.soap.toString()
             +"\n\tfunc_name: "+method_soap_name
             +"\n\tparamTypes: "+paramTypes.toString()
@@ -670,9 +652,9 @@ public class GuidesSoapExecutor {
     } catch (NumberFormatException ex){
       return this._jsonError("Очікувалось ціле число, але не роспізнано як таке : '"+str+"'");
     }
-    this._debug("Виклик функції invokeMethod завершено ");
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod завершено ");
     if (func_name.equals("ChangePassword")){
-      this._debug("Обробка виклику функції ChangePassword ... ");
+      GuidesSoapExecutor._debug("Обробка виклику функції ChangePassword ... ");
       if (return_val == 1){
         try {
           jo.put("message", "Пароль змінено.");
@@ -695,7 +677,7 @@ public class GuidesSoapExecutor {
       }
     }
     if (return_val > 0){
-      this._debug("Обробка випадку, коли повернулось значення більше нуля ... ");
+      GuidesSoapExecutor._debug("Обробка випадку, коли повернулось значення більше нуля ... ");
       try {
         jo.put("message", "Виконання функції завершилось. Повернулось значення: "
                 +String.valueOf(return_val));
@@ -704,7 +686,7 @@ public class GuidesSoapExecutor {
         return null;
       }
     } else {
-      this._debug("Обробка випадку, коли повернулось значення менше нуля або нуль ... ");
+      GuidesSoapExecutor._debug("Обробка випадку, коли повернулось значення менше нуля або нуль ... ");
       try {
         jo.put("message", "Виконання функції завершилось. Повернулось значення: "
                 +String.valueOf(return_val));
@@ -736,18 +718,18 @@ public class GuidesSoapExecutor {
       Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
-    this._debug("З`ясовано: SOAP-функція повертає строкове значення: ввімкнення обробки цього випадку ...");
+    GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає строкове значення: ввімкнення обробки цього випадку ...");
     String return_val;
-    this._debug("Виклик функції invokeMethod з параметрами "
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod з параметрами "
             +"\n\tSOAP-object: "+this.soap.toString()
             +"\n\tfunc_name: "+Introspector.decapitalize(func_name)
             +"\n\tparamTypes: "+paramTypes.toString()
             +"\n\tparamValues: "+paramValues.toString()
             +"\n...");
     return_val = (String)this.invokeMethod((Object)this.soap, Introspector.decapitalize(func_name), paramTypes, paramValues);
-    this._debug("Виклик функції invokeMethod завершено ");
+    GuidesSoapExecutor._debug("Виклик функції invokeMethod завершено ");
     if (func_name.equals("Login")){
-      this._debug("Обробка виклику функції Login ... ");
+      GuidesSoapExecutor._debug("Обробка виклику функції Login ... ");
       if (!return_val.isEmpty() && return_val.matches("^[-0-9a-f]+$")){
         try {
           jo.put("guid", return_val);
@@ -767,7 +749,7 @@ public class GuidesSoapExecutor {
       }
     }
     if (func_name.equals("Logout")){
-      this._debug("Обробка виклику функції Logout ... ");
+      GuidesSoapExecutor._debug("Обробка виклику функції Logout ... ");
       if (return_val.isEmpty()){
         try {
           jo.put("message", "Успішний вихід");
@@ -841,15 +823,15 @@ public class GuidesSoapExecutor {
       ArrayList <Object> paramValues;
       paramTypes = new ArrayList<>();
       paramValues = new ArrayList<>();
-      this._debug("З`ясування, який клас буде повернений ...");
+      GuidesSoapExecutor._debug("З`ясування, який клас буде повернений ...");
       edbo_type = this.getReturnClass(func);
-      this._debug("З`ясовано: буде повернено клас: "+edbo_type);
-      this._debug("З`ясування, які потрібні класи для вхідних параметрів ...");
+      GuidesSoapExecutor._debug("З`ясовано: буде повернено клас: "+edbo_type);
+      GuidesSoapExecutor._debug("З`ясування, які потрібні класи для вхідних параметрів ...");
       paramTypes = this.getInputParamTypes(func);
-      this._debug("З`ясовано: класи вхідних параметрів: "+paramTypes.toString());
-      this._debug("З`ясування, які потрібні вхідні параметри ...");
+      GuidesSoapExecutor._debug("З`ясовано: класи вхідних параметрів: "+paramTypes.toString());
+      GuidesSoapExecutor._debug("З`ясування, які потрібні вхідні параметри ...");
       paramValues = this.getInputParamValues(func,params);
-      this._debug("З`ясовано: вхідні параметри: "+paramValues.toString());
+      GuidesSoapExecutor._debug("З`ясовано: вхідні параметри: "+paramValues.toString());
       
       if (edbo_type.contains("ArrayOf")){
         //

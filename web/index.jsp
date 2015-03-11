@@ -207,7 +207,10 @@
             };
             
             var drawOutputData = function(elem,data){
-              for (var i = 0; i < data.body.length; i++){
+              var body_len = data.body.length;
+              var len = (body_len > 500)? 500: body_len;
+              var others_count = body_len - 500;
+              for (var i = 0; i < len; i++){
                 var id_ = elem.replace("#","")+"-record-"+(i+1);
                 $(elem).append("<div class='col-xs-12 col-sm-6 col-md-4 top10' id='"+id_+"'>"
                   +"<legend class='main-legend'>ЗАПИС #"+(i+1)+"</legend>"
@@ -244,6 +247,11 @@
                     );
                   }
                 }
+              }
+              if (others_count > 0){
+                $("#"+id_).append("<center>та інші записи ("+others_count+"). "
+                        +"Усі дані знаходяться в SQL-запиті.</center>");
+                
               }
               return true;
             };
@@ -490,7 +498,7 @@
       <div class="col-xs-10">
         <div class="col-xs-12" id="__title">
           <center>Довідники ЄДЕБО</center>
-          <center><a href="index-test.jsp">Довідники ЄДЕБО (ТЕСТОВА БАЗА)</a></center>
+          <!--center><a href="index-test.jsp">Довідники ЄДЕБО (ТЕСТОВА БАЗА)</a></center-->
           <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
         </div>
         <div class="col-xs-12" id="func_block">
