@@ -1,0 +1,831 @@
+drop table if exists Subjects ;
+create table Subjects(
+  id int primary key auto_increment,
+  Id_Subject int comment 'Идентификатор предмета',
+  SubjectKey varchar(255) comment 'Строковый код предмета',
+  IdZnoSubject int comment 'Идентификатор предмета поклассификатору УЦОЯО',
+  ParentSubject int comment 'Родительский Id_Subject для предмета',
+  SubjectDateBegin dateTime comment 'Дата начала действия записи',
+  SubjectDateEnd dateTime comment 'Дата окончания действия записи',
+  Id_Language int comment 'Идентификатор языка записей',
+  SubjectName varchar(255) comment 'Название предмета'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Алгебра',
+'15',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'algebra',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Англійська мова',
+'30',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'',
+'12'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Астрономія',
+'17',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'astronomy',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Біологія',
+'18',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'biology',
+'7'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Всесвітня історія',
+'7',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'wrold-history',
+'4'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Географія',
+'19',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'geographic',
+'8'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Геометрія',
+'16',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'geometry',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Екологія',
+'23',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'ecology',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Економіка',
+'9',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'economy',
+'10'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Естетика',
+'13',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'estetic',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Зарубіжна література',
+'41',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'forlit',
+'9'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Захист вітчизни',
+'28',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'dpu',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Іноземна мова',
+'3',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'foreigns',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Іноземна мова',
+'4',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'another-foreign',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Інформатика',
+'25',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'informatic',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Іспанська мова',
+'33',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'',
+'15'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Історія України',
+'6',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'ukraine-history',
+'2'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Креслення',
+'26',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'drawing',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Людина і світ',
+'10',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'men-and-world',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Математика',
+'14',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'mathematic',
+'3'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Математика (поглиблений рівень)',
+'43',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'mathematic adv',
+'33'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Німецька мова',
+'32',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'',
+'14'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Правознавство',
+'8',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'rightknows',
+'11'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Психологія',
+'20',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'psychology',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Російська мова',
+'36',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'',
+'16'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Світова література',
+'5',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'world-lit',
+'17'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Творчий конкурс',
+'34',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'art-exam',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Технології',
+'24',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'technology',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Українська література',
+'2',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'ukr-lit',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Українська мова',
+'1',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'ukrainian',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Українська мова і література (поглиблений рівень)',
+'42',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'ukr adv',
+'31'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Українська мова та література',
+'29',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'',
+'1'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Фаховий іспит',
+'40',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'fah',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Фізика',
+'21',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'phisics',
+'5'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Фізична культура',
+'27',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'phisculture',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Філософія',
+'11',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'philosophy',
+'0'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Французька мова',
+'31',
+'1',
+'2001-01-01T00:00:00',
+'3',
+'2099-12-31T23:59:59',
+'',
+'13'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Хімія',
+'22',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'chemics',
+'6'
+);
+insert into Subjects (
+SubjectName,
+Id_Subject,
+Id_Language,
+SubjectDateBegin,
+ParentSubject,
+SubjectDateEnd,
+SubjectKey,
+IdZnoSubject
+)
+ values 
+(
+'Художня культура',
+'12',
+'1',
+'2001-01-01T00:00:00',
+'0',
+'2099-12-31T23:59:59',
+'art-culture',
+'0'
+);

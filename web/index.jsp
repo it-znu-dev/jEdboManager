@@ -498,7 +498,7 @@
       <div class="col-xs-10">
         <div class="col-xs-12" id="__title">
           <center>Довідники ЄДЕБО</center>
-          <!--center><a href="index-test.jsp">Довідники ЄДЕБО (ТЕСТОВА БАЗА)</a></center-->
+          <center><a href="person.jsp">SOAP EDBOPerson</a></center>
           <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
         </div>
         <div class="col-xs-12" id="func_block">

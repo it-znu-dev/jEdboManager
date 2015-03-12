@@ -5,15 +5,15 @@
  */
 package jSoapCommon;
 
-import jEdboGuides.GuidesServlet;
+import jFuncList.FuncList;
 import java.beans.Introspector;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -25,300 +25,13 @@ import org.json.JSONObject;
 
 /**
  *
- * @author sysadmin
+ * @author sinepolsky
  */
-public class GuidesSoapExecutor {
+public class GuidesSoapExecutor extends SoapExecutor {
   public Object edbo_guides;
-  public Object soap;
-  
-  protected String getCurrentTime(){
-    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-    Date date = new Date();
-    String actual_datetime = dateFormat.format(date);
-    return actual_datetime;
-  }
-  
-  public static void _debug(String info){
-    System.out.println(info);
-  }
-  
-  protected JSONObject _jsonError(String err){
-    JSONObject jo = new JSONObject();
-    try {
-      jo.put("error", err);
-      return jo;
-    } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return null;
-    }
-  }
-  
-  /**
-   * Формування в залежності від способу взаємодії (json|jsonp)
-   * відповіді дії сервлету
-   * @param callback callback-параметр при кросдоменній AJAX-взаємодії
-   * @param jo json-об’єкт, який буде виведено
-   * @return строкове представлення json-об’єкту
-   */
-  public String jResponseString(String callback, JSONObject jo){
-    if (callback == null || callback.isEmpty()){
-      return jo.toString();
-    }
-    return callback
-            + "("+ jo.toString() + ")";
-  }
-  
-  /**
-   * Формування в залежності від способу взаємодії (json|jsonp)
-   * відповіді дії сервлету
-   * @param callback callback-параметр при кросдоменній AJAX-взаємодії
-   * @param ja json-масив, який буде виведено
-   * @return строкове представлення json-об’єкту
-   */
-  public String jResponseString(String callback, JSONArray ja){
-    if (callback == null || callback.isEmpty()){
-      return ja.toString();
-    }
-    return callback
-            + "("+ ja.toString() + ")";
-  }
-  
-  /**
-   * Виконання методу з вхідними параметрами (рефлексивно)
-   * @param o Об'єкт - екземпляр класу, метод якого буде виконуватись 
-   * @param methodName назва методу
-   * @param paramTypes ArrayList |Class| - масив типів параметрів (класів)
-   * @param paramValues ArrayList |Object|  - масив вхідних параметрів
-   * @return результат виконання методу
-   */
-  public Object invokeMethod(Object o, String methodName, 
-          ArrayList<Class> paramTypes, ArrayList<Object> paramValues) {
-    Method m = null;
-    Object result = null;
-    Class[] cls = new Class[paramTypes.size()];
-    String err = "";
-    int k = 0;
-    for (Class cl: paramTypes){
-      cls[k++] = cl;
-    }
-    try {
-      m = o.getClass().getDeclaredMethod(methodName, cls);
-    } catch (NoSuchMethodException ex) {
-      err = "! Помилка: метод '"+methodName+"' не існує для класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    } catch (SecurityException ex) {
-      err = "! Помилка: метод '"+methodName+"' не дозволено викликати для екземплярів класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    }
-    try {
-      result = m.invoke(o, paramValues.toArray());
-    } catch (InvocationTargetException | IllegalAccessException ex) {
-      err = "! Помилка: проблеми з методом '"+methodName+"' класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    }
-    return result;
-  }
-  
-  /**
-   * Виконання методу без вхідних параметрів (рефлексивно)
-   * @param o Об'єкт - екземпляр класу, метод якого буде виконуватись
-   * @param methodName назва методу
-   * @return результат виконання методу
-   */
-  public Object invokeMethod(Object o, String methodName) {
-    Method m = null;
-    Object result = null;
-    String err = "";
-    try {
-      m = o.getClass().getDeclaredMethod(methodName);
-    } catch (NoSuchMethodException ex) {
-      err = "! Помилка: метод '"+methodName+"' не існує для класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    } catch (SecurityException ex) {
-      err = "! Помилка: метод '"+methodName+"' не дозволено викликати для екземплярів класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    }
-    try {
-      result = m.invoke(o);
-    } catch (InvocationTargetException | IllegalAccessException ex) {
-      err = "! Помилка: проблеми з методом '"+methodName+"' класу '"
-              +o.getClass().getSimpleName()+"'.";
-      GuidesSoapExecutor._debug(err);
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return err;
-    }
-    return result;
-  }
-  
-  /**
-   * Повертає Тип (назву класу) даних зворотнього звязку
-   * @param func JSON-об'єкт даних SOAP-методу
-   * @return назва класу
-   */
-  public String getReturnClass(JSONObject func){
-    String retClassName = "int";
-    if (func.has("return")){
-      JSONArray ret_params = new JSONArray();
-      try {
-        ret_params = func.getJSONArray("return");
-      } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        return "";
-      }
-      for (int i = 0; i < ret_params.length(); i++){
-        try {
-          JSONObject ret ;
-          String name, type, descr;
-          ret = ret_params.getJSONObject(i);
-          name = ret.getString("name");
-          type = ret.getString("type");
-          descr = ret.getString("description");
-          if (name.isEmpty() && descr.isEmpty()){
-            if (type.equalsIgnoreCase("int") || type.equalsIgnoreCase("string")){
-              retClassName = type;
-            } else {
-              retClassName = "ArrayOf"+type;
-            }
-            break;
-          }
-        } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-          return "";
-        }
-      }
-    }
-    GuidesSoapExecutor._debug("Тип даних зворотнього звязку: "+retClassName);
-    return retClassName;
-  }
-  
-  /**
-   * Повертає список класів вхідних параметрів SOAP-функції
-   * @param func JSON-об'єкт даних SOAP-методу
-   * @return масив-список класів вхідних параметрів SOAP-функції
-   */
-  public ArrayList<Class> getInputParamTypes(JSONObject func){
-    ArrayList<Class> paramTypes = new ArrayList<>();
-    if (func.has("receive")){
-      try {
-        JSONArray receive_params = new JSONArray();
-        receive_params = func.getJSONArray("receive");
-        for (int i = 0; i < receive_params.length(); i++){
-          JSONObject rec = new JSONObject();
-          String name, type;
-          rec = receive_params.getJSONObject(i);
-          type = rec.getString("type");
-          name = rec.getString("name");
-          if (name == null || name.isEmpty()){
-            continue;
-          }
-          if (type.equalsIgnoreCase("string")){
-            paramTypes.add(String.class);
-          }
-          if (type.equalsIgnoreCase("int") || type.equalsIgnoreCase("integer")){
-            paramTypes.add(int.class);
-          }
-        }
-      } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        return paramTypes;
-      }
-    }
-    return paramTypes;
-  }
-  
-  /**
-   * Повертає список значень вхідних параметрів SOAP-функції
-   * @param func JSON-об'єкт даних SOAP-методу
-   * @param params хеш-мапа вхідних параметрів сервлету
-   * @return масив-список значень вхідних параметрів SOAP-функції
-   */
-  public ArrayList<Object> getInputParamValues(JSONObject func, HashMap<String,String> params){
-    ArrayList<Object> paramValues = new ArrayList<>();
-    if (func.has("receive")){
-      try {
-        JSONArray receive_params = new JSONArray();
-        receive_params = func.getJSONArray("receive");
-        for (int i = 0; i < receive_params.length(); i++){
-          JSONObject rec = new JSONObject();
-          String name, type;
-          rec = receive_params.getJSONObject(i);
-          type = rec.getString("type");
-          name = rec.getString("name");
-          if (name == null || name.isEmpty()){
-            continue;
-          }
-          if (type.equalsIgnoreCase("string")){
-            paramValues.add((Object)params.get(name));
-          }
-          if (type.equalsIgnoreCase("int") || type.equalsIgnoreCase("integer")){
-            if (params.get(name).isEmpty()){
-              paramValues.add(0);
-            } else {
-              paramValues.add((Object)Integer.parseInt(params.get(name)));
-            }
-          }
-        }
-      } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        return paramValues;
-      }
-    }
-    return paramValues;
-  }
-  
-  /**
-   * Створення екземляру класу
-   * @param className назва класу, з якого створюється екземпляр
-   * @return екземпляр класу
-   */
-  public Object createClassInstanceByName(String className){
-    Class<?> classItself = null;
-    JSONObject jo = new JSONObject();
-    try {  
-      classItself = Class.forName(className);
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return this._jsonError("Клас '"+className+"' не знайдено");
-    }
-    GuidesSoapExecutor._debug("Створено клас "+className);
-
-    Constructor<?> classConstructor;
-
-    try {
-      classConstructor= classItself.getConstructor();
-    } catch (NoSuchMethodException | SecurityException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return this._jsonError("Клас '"+className+"' не ініціалізується.");
-    }
-    GuidesSoapExecutor._debug("Створено конструктор класу '"+className+"'");
-
-    Object classInstance;
-
-    try {
-      classInstance= classConstructor.newInstance();
-    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
-      return this._jsonError("Не вдалося створити екземпляр класу '"+className+"' .");
-    }
-    GuidesSoapExecutor._debug("Створено екземпляр класу "+className);
-    return classInstance;
-  }
-  
+  protected JSONObject soapResultJSON = new JSONObject();
+  protected File fileSQL;
+    
   /**
    * Повертає SQL-код для формування структури таблиці значень, що повертає SOAP-функція
    * @param func JSON-об'єкт даних SOAP-методу
@@ -342,7 +55,7 @@ public class GuidesSoapExecutor {
     try {
       ret_params = func.getJSONArray("return");
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
     for (int i = 0; i < ret_params.length(); i++){
@@ -365,7 +78,7 @@ public class GuidesSoapExecutor {
           sql_str += "\n);\n";
         }
       } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
     }
@@ -434,7 +147,7 @@ public class GuidesSoapExecutor {
         }
         
       } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
     }
@@ -460,7 +173,7 @@ public class GuidesSoapExecutor {
     try {
       ret_params = func.getJSONArray("return");
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
     for (int i = 0; i < ret_params.length(); i++){
@@ -474,7 +187,7 @@ public class GuidesSoapExecutor {
         }
         jStruct.put(name, jret);
       } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
     }
@@ -491,7 +204,7 @@ public class GuidesSoapExecutor {
             continue;
           }
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
         String $pref = "get";
@@ -513,7 +226,7 @@ public class GuidesSoapExecutor {
         try {
           jItems.put(name, item_value);
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       }
@@ -523,7 +236,7 @@ public class GuidesSoapExecutor {
       jo.put("body", ja);
       jo.put("head", jStruct);
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
     return jo;
@@ -531,6 +244,7 @@ public class GuidesSoapExecutor {
   
   /**
    * Обробка випадку, коли SOAP-функція повертає масив
+   * @param _package "jEdboGuides" | "jEdboGuidesTest"
    * @param func JSON-об'єкт - інформація про функцію SOAP
    * @param edbo_type назва класу, що повертає виконання SOAP-функції
    * @param paramTypes список класів вхідних параметрів SOAP-функції
@@ -539,7 +253,7 @@ public class GuidesSoapExecutor {
    * @param err_func JSON-об'єкт - інформація про функцію SOAP "GetLastError"
    * @return JSONObject
    */
-  public JSONObject getJsonResultForArray(JSONObject func, String edbo_type, 
+  public JSONObject getJsonResultForArray(String _package, JSONObject func, String edbo_type, 
           ArrayList<Class> paramTypes, ArrayList <Object> paramValues,
           HashMap <String, String> params, JSONObject err_func){
     JSONObject jo = new JSONObject();
@@ -547,14 +261,14 @@ public class GuidesSoapExecutor {
     try {
       func_name = func.getString("name");
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
     GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає масив: ввімкнення обробки цього випадку ...");
-    Object edboClass_arr_instance = this.createClassInstanceByName("jEdboGuides."+edbo_type);
-    Object edboClass_instance = this.createClassInstanceByName("jEdboGuides."+edbo_type.replace("ArrayOf", ""));
+    Object edboClass_arr_instance = this.createClassInstanceByName(_package+"."+edbo_type);
+    Object edboClass_instance = this.createClassInstanceByName(_package+"."+edbo_type.replace("ArrayOf", ""));
     if (edboClass_arr_instance == null){
-      return this._jsonError("Не вдалося створити екземпляр класу '"+"jEdboGuides."+edbo_type+"'");
+      return this._jsonError("Не вдалося створити екземпляр класу '"+_package+"."+edbo_type+"'");
     }
     if (edboClass_instance == null){
       return this._jsonError("Не вдалося створити екземпляр класу '"
@@ -621,7 +335,7 @@ public class GuidesSoapExecutor {
     try {
       func_name = func.getString("name");
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
     GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає ціле значення: ввімкнення обробки цього випадку ...");
@@ -660,7 +374,7 @@ public class GuidesSoapExecutor {
           jo.put("message", "Пароль змінено.");
           return jo;
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       } else if (return_val == 0) {
@@ -671,7 +385,7 @@ public class GuidesSoapExecutor {
           jo.put("error", "Сталася дивна помилка: помилка при запиті на отримання інформації про помилку.");
           return jo;
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       }
@@ -682,7 +396,7 @@ public class GuidesSoapExecutor {
         jo.put("message", "Виконання функції завершилось. Повернулось значення: "
                 +String.valueOf(return_val));
       } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
     } else {
@@ -691,7 +405,7 @@ public class GuidesSoapExecutor {
         jo.put("message", "Виконання функції завершилось. Повернулось значення: "
                 +String.valueOf(return_val));
       } catch (JSONException ex) {
-        Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
       }
     }
@@ -715,7 +429,7 @@ public class GuidesSoapExecutor {
     try {
       func_name = func.getString("name");
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
     }
     GuidesSoapExecutor._debug("З`ясовано: SOAP-функція повертає строкове значення: ввімкнення обробки цього випадку ...");
@@ -735,7 +449,7 @@ public class GuidesSoapExecutor {
           jo.put("guid", return_val);
           return jo;
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       } else {
@@ -743,7 +457,7 @@ public class GuidesSoapExecutor {
           jo.put("error", return_val);
           return jo;
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       }
@@ -755,7 +469,7 @@ public class GuidesSoapExecutor {
           jo.put("message", "Успішний вихід");
           return jo;
         } catch (JSONException ex) {
-          Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
           return null;
         }
       } else {
@@ -766,7 +480,7 @@ public class GuidesSoapExecutor {
       jo.put("message", return_val);
       return jo;
     } catch (JSONException ex) {
-      Logger.getLogger(GuidesServlet.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
   }
@@ -812,30 +526,24 @@ public class GuidesSoapExecutor {
   public JSONObject execEdboSoapFunc(JSONObject func, HashMap<String,String> params, 
           JSONObject err_func) {
     JSONObject jo = new JSONObject();
-    String func_name = "";
-    try {
-      func_name = func.getString("name");
-    } catch (JSONException ex){
-      return this._jsonError("Не знайдено назву функції в JSON-об'єкті: "+func.toString());
-    }
       String edbo_type = "int";
       ArrayList <Class> paramTypes;
       ArrayList <Object> paramValues;
       paramTypes = new ArrayList<>();
       paramValues = new ArrayList<>();
-      GuidesSoapExecutor._debug("З`ясування, який клас буде повернений ...");
       edbo_type = this.getReturnClass(func);
       GuidesSoapExecutor._debug("З`ясовано: буде повернено клас: "+edbo_type);
-      GuidesSoapExecutor._debug("З`ясування, які потрібні класи для вхідних параметрів ...");
       paramTypes = this.getInputParamTypes(func);
       GuidesSoapExecutor._debug("З`ясовано: класи вхідних параметрів: "+paramTypes.toString());
-      GuidesSoapExecutor._debug("З`ясування, які потрібні вхідні параметри ...");
       paramValues = this.getInputParamValues(func,params);
       GuidesSoapExecutor._debug("З`ясовано: вхідні параметри: "+paramValues.toString());
-      
+      String _package = "jEdboGuides";
+      if (params.containsKey("test")){
+        _package = "jEdboGuidesTest";
+      }
       if (edbo_type.contains("ArrayOf")){
         //
-        return this.getJsonResultForArray(func,edbo_type,
+        return this.getJsonResultForArray(_package,func,edbo_type,
                 paramTypes,paramValues,
                 params,err_func);
         //
@@ -855,5 +563,166 @@ public class GuidesSoapExecutor {
       
     return jo;
   }
+  
+ /**
+   * Виклик SOAP-функції і виведення результатів
+   * @param Guid GUID-ідентифікатор користувача
+   * @param calling_func json-об’єкт для SOAP-функції 
+   * @param params SOAP input params
+   * @param err json-об’єкт для SOAP-функції GetLastError
+   * @param callback пуста строка, якщо не тип jsonp, інакше REQUEST-параметр [callback]
+   * @param out екземпляр класу PrintWriter
+   * @return 
+   */
+  public synchronized JSONObject execSoap(String Guid, JSONObject calling_func, 
+          HashMap <String,String> params,
+          JSONObject err,  String callback, PrintWriter out){
+    try {
+      JSONObject jret; //execEdboSoapFunc result
+      JSONObject jerr = new JSONObject(); //json for error
+      String func_name; //SOAP-function name
+      JSONArray funcJSON_arr; //body of this.soapResultJSON
+      JSONArray jret_arr;// body of jret
+      BufferedWriter sql_out = null;
+      String sql = this.getSqlTableStruct(calling_func);
+      this.soapResultJSON = new JSONObject();
+
+      func_name = calling_func.getString("name");
+      this.fileSQL = new File(FuncList.getWorkingAbsolutePath()+"/sql/"
+              +func_name.replace("Get", "")+".sql");
+      
+      if ((Guid == null || Guid.isEmpty()) && !func_name.equals("Login")){
+        jerr.put("error","Дія заборонена для НЕавторизованого користувача");
+        out.println(this.jResponseString(callback, jerr));
+        GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+        GuidesSoapExecutor._debug("=========================");
+        return null;
+      }
+      GuidesSoapExecutor._debug("Виклик методу execEdboSoapFunc для SOAP-функції '"+func_name+"' ...");
+      jret = this.execEdboSoapFunc(calling_func, params, err);
+      if (jret.has("error") || jret.has("message")){
+        GuidesSoapExecutor._debug("Отримано сповіщення.");
+        out.println(this.jResponseString(callback, jret));
+        GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+        GuidesSoapExecutor._debug("=========================");
+        return jret;
+      }
+      if (jret.has("guid")){
+        GuidesSoapExecutor._debug("Отримано GUID сесії.");
+        out.println(this.jResponseString(callback, jret));
+        GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+        GuidesSoapExecutor._debug("=========================");
+        return jret;
+      }
+      if (!jret.has("body") 
+              || (jret.getJSONArray("body") == null)
+              || (jret.getJSONArray("body").length() == 0)){
+        jerr.put("error","Не отримано дані після виклику SOAP-функції '"
+                +func_name+"' з параметрами\n  "+params.toString());
+        out.println(this.jResponseString(callback, jerr));
+        GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+        GuidesSoapExecutor._debug("=========================");
+        return jret;
+      }
+      GuidesSoapExecutor._debug("Ініціалізація атрибуту soapResultJSON ...");
+      this.soapResultJSON.put("head", jret.get("head"));
+      this.soapResultJSON.put("body", new JSONArray());
+      jret_arr = jret.getJSONArray("body");
+      GuidesSoapExecutor._debug("Отримали масив (кількість елементів: "+jret_arr.length()+")");
+      funcJSON_arr = this.soapResultJSON.getJSONArray("body");
+      GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
+      try  {
+        sql_out = new BufferedWriter( new FileWriter(this.fileSQL, false));
+        sql_out.write(sql);
+        sql_out.close();
+      }
+      catch (IOException e){
+          jerr.put("error",this.fileSQL.getAbsolutePath()+" не відкрився.");
+          out.println(this.jResponseString(callback, jerr));
+          GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+          GuidesSoapExecutor._debug("=========================");
+          return jret;
+      }
+      //LOOP
+      for (int i = 0; i < jret_arr.length(); i++){
+        JSONObject jitem = jret_arr.getJSONObject(i);
+        String resultInsertSQL = "";
+        resultInsertSQL += "insert into "+func_name.replace("Get", "")+" (\n";
+        Iterator iter = jitem.keys();
+        for (Object obj=iter.next();(obj != null);obj=iter.next()){
+          String key = (String)obj;
+          resultInsertSQL += key;
+          if (iter.hasNext()){
+            resultInsertSQL += ",\n";
+          } else {
+            break;
+          }
+        }
+        resultInsertSQL += "\n)\n values \n";
+        Iterator iter2 = jitem.keys();
+        resultInsertSQL += "(\n";
+        for (Object obj=iter2.next();(obj != null);obj=iter2.next()){
+          String key = (String)obj;
+          String val = String.valueOf(jitem.get(key));
+          resultInsertSQL += "'" + val.replace("'", "`") + "'";
+          if (iter2.hasNext()){
+            resultInsertSQL += ",\n";
+          } else {
+            break;
+          }
+        }
+        resultInsertSQL += "\n);\n";
+        GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
+        try  {
+          sql_out = new BufferedWriter( new FileWriter(this.fileSQL, true));
+          sql_out.write(resultInsertSQL);
+          sql_out.close();
+        }
+        catch (IOException e){
+            jerr.put("error",this.fileSQL.getAbsolutePath()+" не відкрився.");
+            out.println(this.jResponseString(callback, jerr));
+            GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+            GuidesSoapExecutor._debug("=========================");
+            return jret;
+        }
+        funcJSON_arr.put(jitem);
+      }
+      //END LOOP
+      GuidesSoapExecutor._debug("Вийшли з циклу.");
+      GuidesSoapExecutor._debug("Перевизначення soapResultJSON, тепер масив body має розмір = "
+              +funcJSON_arr.length()+".");
+      this.soapResultJSON.put("body", funcJSON_arr);
+      FileInputStream ifstream;
+      try {
+        ifstream = new FileInputStream(this.fileSQL);
+        byte[] sql_data = new byte[(int) this.fileSQL.length()];
+        ifstream.read(sql_data);
+        String str = new String(sql_data, "UTF-8");
+        sql = str;
+        ifstream.close();
+      } catch (IOException ex) {
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      try {
+        this.soapResultJSON.put("sql", sql);
+      } catch (JSONException ex) {
+        Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      out.println(this.jResponseString(callback, 
+              this.soapResultJSON));
+      GuidesSoapExecutor._debug("Завершення обробки REQUESТ-запиту "+this.getCurrentTime()+".");
+      GuidesSoapExecutor._debug("=========================");
+      JSONObject retJ = this.soapResultJSON;
+      this.soapResultJSON = null;
+      return retJ;
+      //
+    } catch (JSONException ex) {
+      GuidesSoapExecutor._debug("Сталася помилка під час виклику методу `execSoap` .");
+      Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
+      this.soapResultJSON = null;
+      return null;
+    }
+  }
+
 
 }

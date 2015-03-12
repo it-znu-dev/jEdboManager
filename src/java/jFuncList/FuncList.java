@@ -47,13 +47,14 @@ public class FuncList {
   
   /**
    * Повертає назви SOAP-функцій
+   * @param folder - csv placed directory
    * @return масив строк - назви SOAP-функцій
    * @throws IOException 
    */
-  public ArrayList<String> getEdboGuidesFuncNames() throws IOException{
+  public ArrayList<String> getEdboFuncNames(String folder) throws IOException{
     HashSet <String> funcNames = new HashSet<>();
     ArrayList <String> afuncNames = new ArrayList<>();
-    String dir_path = FuncList.getWorkingAbsolutePath() + "/guides_csv";
+    String dir_path = FuncList.getWorkingAbsolutePath() + "/"+folder;
     File dir = new File(dir_path);
     File[] files = dir.listFiles();
     for (File f : files) {
@@ -83,13 +84,14 @@ public class FuncList {
   /**
    * Формується двомірний масив рядків на основі даних csv-файлу в директорії 
    * <code>{FuncList.getWorkingAbsolutePath()}</code> / guides_csv
+   * @param folder csv placed directory
    * @param csv_file_name назва файлу CSV
    * @param separator символ розділювач
-   * @return ArrayList<ArrayList<String>>
+   * @return ArrayList<ArrayList<>>
    */
-  public ArrayList<ArrayList<String>> getEdboGuidesCsvContent(String csv_file_name, char separator){
+  public ArrayList<ArrayList<String>> getEdboCsvContent(String folder, String csv_file_name, char separator){
     ArrayList<ArrayList<String>> csvData = new ArrayList<>();
-    String absolute_path_to_csv = FuncList.getWorkingAbsolutePath()+"/guides_csv/"+csv_file_name;
+    String absolute_path_to_csv = FuncList.getWorkingAbsolutePath()+"/"+folder+"/"+csv_file_name;
     //System.out.println(org.apache.commons.lang.StringEscapeUtils.unescapeHtml("&gt;&nbsp;&lt;"));
     CSVReader reader = null;
     try{
@@ -132,23 +134,24 @@ public class FuncList {
    *  }
    * ]
    * </code></pre>
-   * @return
+   * @param folder csv placed directory
+   * @return JSONArray
    * @throws IOException
    * @throws JSONException 
    */
-  public JSONArray getJsonEdboGuidesFuncList() throws IOException, JSONException{
+  public JSONArray getJsonEdboFuncList(String folder) throws IOException, JSONException{
     JSONArray ja = new JSONArray();
     String[] keys = {"name","type","description"};
-    for (int i = 0; i < this.getEdboGuidesFuncNames().size(); i++){
+    for (int i = 0; i < this.getEdboFuncNames(folder).size(); i++){
       JSONObject j_o = new JSONObject();
-      String csv_receive_path = FuncList.getWorkingAbsolutePath()+"/guides_csv/"+this.getEdboGuidesFuncNames().get(i)+"__receive.csv";
-      String csv_return_path = FuncList.getWorkingAbsolutePath()+"/guides_csv/"+this.getEdboGuidesFuncNames().get(i)+"__return.csv";
+      String csv_receive_path = FuncList.getWorkingAbsolutePath()+"/"+folder+"/"+this.getEdboFuncNames(folder).get(i)+"__receive.csv";
+      String csv_return_path = FuncList.getWorkingAbsolutePath()+"/"+folder+"/"+this.getEdboFuncNames(folder).get(i)+"__return.csv";
       File f_receive = new File(csv_receive_path);
       File f_return = new File(csv_return_path);
       if (f_receive.exists()){
         JSONArray j_receive = new JSONArray();
-        String csv_file = this.getEdboGuidesFuncNames().get(i)+"__receive.csv";
-        ArrayList <ArrayList<String> > csvArr = this.getEdboGuidesCsvContent(csv_file, ';');
+        String csv_file = this.getEdboFuncNames(folder).get(i)+"__receive.csv";
+        ArrayList <ArrayList<String> > csvArr = this.getEdboCsvContent(folder,csv_file, ';');
         for (ArrayList<String> csvArr_line : csvArr) {
           int k = 0;
           JSONObject j__o = new JSONObject();
@@ -162,8 +165,8 @@ public class FuncList {
       }        
       if (f_return.exists()){
         JSONArray j_return = new JSONArray();
-        String csv_file_ret = this.getEdboGuidesFuncNames().get(i)+"__return.csv";
-        ArrayList <ArrayList<String> > csvRetArr = this.getEdboGuidesCsvContent(csv_file_ret, ';');
+        String csv_file_ret = this.getEdboFuncNames(folder).get(i)+"__return.csv";
+        ArrayList <ArrayList<String> > csvRetArr = this.getEdboCsvContent(folder,csv_file_ret, ';');
         for (ArrayList<String> csvArr_line : csvRetArr) {
           int k = 0;
           JSONObject j__o = new JSONObject();
@@ -175,9 +178,49 @@ public class FuncList {
         }
         j_o.put("return", j_return);
       }
-      j_o.put("name",this.getEdboGuidesFuncNames().get(i));
+      j_o.put("name",this.getEdboFuncNames(folder).get(i));
       ja.put(j_o);
     }
     return ja;
   }
+  
+
+  /**
+   * Повертає Json-масив даних наступної структури
+   * <pre><code>
+   * [
+   *  {
+   *   "name": "назва_функції",
+   *   "receive": [{"name": "назва_параметра", "type":"тип", "description": "опис"}, {...}, ...],
+   *   "return": [{"name": "назва_параметра", "type":"тип", "description": "опис"}, {...}, ...]
+   *  }
+   * ]
+   * </code></pre>
+   * @return
+   * @throws IOException
+   * @throws JSONException 
+   */
+  public JSONArray getJsonEdboGuidesFuncList() throws IOException, JSONException{
+    return this.getJsonEdboFuncList("guides_csv");
+  }
+  
+  /**
+   * Повертає Json-масив даних наступної структури
+   * <pre><code>
+   * [
+   *  {
+   *   "name": "назва_функції",
+   *   "receive": [{"name": "назва_параметра", "type":"тип", "description": "опис"}, {...}, ...],
+   *   "return": [{"name": "назва_параметра", "type":"тип", "description": "опис"}, {...}, ...]
+   *  }
+   * ]
+   * </code></pre>
+   * @return
+   * @throws IOException
+   * @throws JSONException 
+   */
+  public JSONArray getJsonEdboPersonFuncList() throws IOException, JSONException{
+    return this.getJsonEdboFuncList("person_csv");
+  }
+
 }

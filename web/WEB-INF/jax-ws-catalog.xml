@@ -2,4 +2,5 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://edbo.znu.edu.ua:8080/EDBOGuides/EDBOGuides.asmx?WSDL" uri="wsdl/edbo.znu.edu.ua_8080/EDBOGuides/EDBOGuides.asmx.wsdl"/>
     <system systemId="http://test.edbo.gov.ua:8080/EDBOGuides/EDBOGuides.asmx?wsdl" uri="wsdl/test.edbo.gov.ua_8080/EDBOGuides/EDBOGuides.asmx.wsdl"/>
+    <system systemId="http://edbo.znu.edu.ua:8080/EDBOPerson/EDBOPerson.asmx?wsdl" uri="wsdl/edbo.znu.edu.ua_8080/EDBOPerson/EDBOPerson.asmx.wsdl"/>
 </catalog>

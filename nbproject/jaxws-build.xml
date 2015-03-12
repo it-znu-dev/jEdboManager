@@ -58,5 +58,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/jEdboGuidesTest"/>
         <delete dir="${build.generated.dir}/jax-wsCache/EDBOGuides_1"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EDBOGuides, wsimport-client-EDBOGuides_1"/>
+    <target name="wsimport-client-EDBOPerson" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EDBOPerson"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EDBOPerson" destdir="${build.generated.dir}/jax-wsCache/EDBOPerson" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EDBOPerson/wsdl/edbo.znu.edu.ua_8080/EDBOPerson/EDBOPerson.asmx.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://edbo.znu.edu.ua:8080/EDBOPerson/EDBOPerson.asmx?wsdl" xnocompile="true" xendorsed="true" package="jEdboPerson">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EDBOPerson/wsdl/edbo.znu.edu.ua_8080/EDBOPerson/EDBOPerson.asmx.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EDBOPerson"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EDBOPerson">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EDBOPerson" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/jEdboPerson"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EDBOPerson"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EDBOGuides, wsimport-client-EDBOGuides_1, wsimport-client-EDBOPerson"/>
 </project>
