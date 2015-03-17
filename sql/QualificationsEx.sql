@@ -2,7 +2,7 @@ drop table if exists QualificationsEx ;
 create table QualificationsEx(
   id int primary key auto_increment,
   Id_Qualification int comment 'Идентификатор квалификационного уровня.',
-  QualificationName String comment 'Название квалификационного уровня.',
+  QualificationName varchar(255) comment 'Название квалификационного уровня.',
   QualificationDateLastChange dateTime comment 'Дата последнего изменения квалификационного уровня'
 );
 insert into QualificationsEx (

@@ -40,10 +40,8 @@ public class FuncListServlet extends HttpServlet {
             + "("+ jo.toString() + ")";
   }
   
-  public void outEdboGuidesFuncList(PrintWriter out) throws IOException, JSONException{
-    FuncList fl = new FuncList();
+  public void outEdboFuncList(JSONArray ja, PrintWriter out) throws IOException, JSONException{
     String[] styles = {" style='background-color: #ddd;'",""};
-    JSONArray ja = fl.getJsonEdboGuidesFuncList();
       out.println("<!DOCTYPE html>");
       out.println("<html>");
       out.println("<head>");
@@ -147,7 +145,17 @@ public class FuncListServlet extends HttpServlet {
           out.println(this.jResponseString(callback,ja));
           return ;
         }
-        this.outEdboGuidesFuncList(out);
+        JSONArray ja = fl.getJsonEdboGuidesFuncList();
+        this.outEdboFuncList(ja,out);
+      }
+      if (person != null){
+        if (to_html == null){
+          JSONArray ja = fl.getJsonEdboPersonFuncList();
+          out.println(this.jResponseString(callback,ja));
+          return ;
+        }
+        JSONArray ja = fl.getJsonEdboPersonFuncList();
+        this.outEdboFuncList(ja,out);
       }
     }
   }

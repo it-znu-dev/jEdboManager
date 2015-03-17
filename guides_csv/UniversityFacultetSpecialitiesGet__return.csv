@@ -8,7 +8,8 @@ UniversityFullName;string;Полное название ВУЗа
 UniversityShortName;string;Краткое название ВУЗа
 UniversityFacultetKode;string;GUID код факультета ВУЗа
 UniversityFacultetFullName;string;Полное название факультета
-UniversityFacultetShortName;string;Краткое название факультета  SpecCode string GUID код специальности из функции SpecGet включающей в себя индустрию направление специальность и специализацию.
+UniversityFacultetShortName;string;Краткое название факультета 
+SpecCode;string;GUID код специальности из функции SpecGet включающей в себя индустрию направление специальность и специализацию.
 SpecClasifierCode;string;Код специальности по классификации МОН
 Id_Language;int;Идентификатор языка названий
 SpecIndastryCode;string;GUID идентификатор индустрии специальности
@@ -20,6 +21,7 @@ SpecSpecialityName;string;Название специальности специ
 SpecSpecializationCode;string;GUID идентификатор специализации
 SpecSpecializationName;string;Название специализации
 UniversitySpecialitiesContractCount;int;Количество контрактных мест для специальности ВУЗа
+UniversitySpecialitiesLicenseCount;int;Лицензионный объем для специальности ВУЗа
 Id_PersonRequestSeasons;int;Идентификатор вступительной компании
 NameRequestSeasons;string;Название вступительной компании
 Id_PersonRequestSeasonDetails;int;Идентификатор детализации вступительной компании

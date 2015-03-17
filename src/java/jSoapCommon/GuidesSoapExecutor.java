@@ -50,7 +50,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
     table_name = func_name.replace("Get", "");
     sql_str += "drop table if exists "+table_name+" ;\n";
     sql_str += "create table "+table_name+"(\n";
-    sql_str += "  id int primary key auto_increment,\n";
+    sql_str += "  `id` int primary key auto_increment,\n";
     
     try {
       ret_params = func.getJSONArray("return");
@@ -63,7 +63,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
       String name,type,descr;
       try {
         jret = ret_params.getJSONObject(i);
-        name = jret.getString("name");
+        name = "`"+jret.getString("name")+"`";
         type = jret.getString("type").replace("string","varchar(255)");
         descr = jret.getString("description");
         if (name.isEmpty()){

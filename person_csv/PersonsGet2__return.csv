@@ -1,0 +1,20 @@
+;DPersonsGet2;
+Id_Person;int;Идентификатор персоны.
+Resident;int;Признак резидентности. 1- резидент, 0 –не резидент.
+PersonCodeU;string;GUID код персоны.
+Birthday;dateTime;Дата рождения
+Id_PersonSex;int;Идентификатор пола персоны
+Id_PersonName;int;Идентификатор имен персоны
+LastName;string;Фамилия персоны
+FirstName;string;Имя персоны
+MiddleName;string;Отчество персоны
+Father;string;Отец
+Mother;string;Мать
+FatherPhones;string;Телефоны отца
+MotherPhones;string;Телефоны матери
+Birthplace;string;Место рождения
+LanguagesAreStudied;string;Какие иностранные языки узачались
+LastNameEn;string;Фамилия на английском (добавлено в версии 2)
+FirstNameEn;string;Имя на английском (добавлено в версии 2)
+MiddleNameEn;string;Отчество на английском (добавлено в версии 2)
+FIOEn;string;ФИО на английском (добавлено в версии 2)

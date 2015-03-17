@@ -202,7 +202,7 @@
                 +'        <div class="row" id="input'+func_name+'"></div>'
                 +'        <div class="form-group centered top10">'
                 +'          <input type="hidden" name="_$action" value="'+func_name+'" />'
-                +'          <button type="submit" class="btn btn-default">'+func_name+'</button>'
+                +'          <button type="submit" class="btn btn-success">'+func_name+'</button>'
                 +'        </div>'
                 +'      </form>'
                 +'    '
@@ -392,8 +392,9 @@
       <div class="col-xs-10">
         <div class="col-xs-12" id="__title">
           <center>SOAP EDBOPerson</center>
-          <center><a href="index.jsp">Довідники ЄДЕБО</a></center>
-          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
+          <center><a href="index.jsp">SOAP EDBOGuides</a></center>
+          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій (GUIDES)</a></center>
+          <center><a href="FuncListServlet?person=&html=">список доступних SOAP-функцій (PERSON)</a></center>
         </div>
         <div class="col-xs-12" id="func_block">
           

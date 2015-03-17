@@ -1,0 +1,19 @@
+;DPersonFindByAttestat2;
+Id_Person;int;Идентификатор персоны.
+Resident;int;Признак резидентности. 1- резидент, 0 –не резидент.
+PersonCodeU;string;GUID код персоны.
+Birthday;dateTime;Дата рождения
+LastName;string;Фамилия персоны
+FirstName;string;Имя персоны
+MiddleName;string;Отчество персоны
+FIO;string;ФИО персоны
+AtestatSeries;string;Серия аттестата
+AtestatNumber;string;Номер аттестата
+AtestatDate;string;Дата выдачи аттестата
+Id_PersonSex;int;Идентификатор пола персоны
+AtestatBall;string;Средний балл аттестата
+Id_PersonDocument;int;Идентификатор документа «аттестатат»
+LastNameEn;string;Фамилия на английском (добавлено в версии 2)
+FirstNameEn;string;Имя на английском (добавлено в версии 2)
+MiddleNameEn;string;Отчество на английском (добавлено в версии 2)
+FIOEn;string;ФИО на английском (добавлено в версии 2)

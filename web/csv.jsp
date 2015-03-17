@@ -59,7 +59,7 @@
               var text = "";
               var step1_result = pre_text.replace(/;/g," ");
               
-              var step2_result = step1_result.replace(/Web\s+сервис\s+EDBOPerson\s+v\s+0\.52[\r\n][0-9]+[\r\n]2014[\r\n]/g,"");
+              var step2_result = step1_result.replace(/Web\s+сервис\s+EDBOPerson\s+v\s+0\.52[\r\n][0-9]+[\r\n]2014[\r\n]/g,"\r\n");
               var step3_result = step2_result.replace(/([a-zA-Z_0-9]+)\s+([a-zA-Z_0-9]+)\s+([^\r\n]+)[\r\n]/g,"$1;$2;$3\r\n");
               var step4_result = step3_result;
               for (var i = 0; i < 100; i++){

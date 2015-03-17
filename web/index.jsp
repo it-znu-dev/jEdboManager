@@ -302,13 +302,13 @@
               $("#func_block").append(
                 '<div class="row margin-top5"  id="'+func_name+'">'
                 +'  <div class="col-xs-12 well well-sm">'
-                +'    <h2>'+((func_name[0] !== "j")? "SOAP-функція ":"Функція ")+func_name+'</h2>' 
+                +'    <h2>'+((func_name !== "KOATUUGetAll")? "SOAP-функція ":"Функція ")+func_name+'</h2>' 
                 +'      <form class="form well well-sm" id="form'+func_name+'" '
                 +'           action="'+service_url+'">'
                 +'        <div class="row" id="input'+func_name+'"></div>'
                 +'        <div class="form-group centered top10">'
                 +'          <input type="hidden" name="_$action" value="'+func_name+'" />'
-                +'          <button type="submit" class="btn btn-default">'+func_name+'</button>'
+                +'          <button type="submit" class="btn btn-success">'+func_name+'</button>'
                 +'        </div>'
                 +'      </form>'
                 +'    '
@@ -497,9 +497,10 @@
       
       <div class="col-xs-10">
         <div class="col-xs-12" id="__title">
-          <center>Довідники ЄДЕБО</center>
+          <center>SOAP EDBOGuides</center>
           <center><a href="person.jsp">SOAP EDBOPerson</a></center>
-          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій</a></center>
+          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій (GUIDES)</a></center>
+          <center><a href="FuncListServlet?person=&html=">список доступних SOAP-функцій (PERSON)</a></center>
         </div>
         <div class="col-xs-12" id="func_block">
           
