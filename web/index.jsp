@@ -19,8 +19,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>jEDEBO - Simple UI</title>
         
-        <link rel="stylesheet" href="own/css/main.css" type="text/css" />
+        
         <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+        <link rel="stylesheet" href="own/css/main.css" type="text/css" />
         
         <script type="text/javascript">
           if(typeof jQuery === "undefined"){
@@ -344,6 +345,32 @@
     
     
 <body data-spy="scroll" data-target="#myScrollSpy">
+  
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-9">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">РЕАЛЬНА БАЗА</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.jsp">SOAP EDBOGuides</a></li>
+          <li><a href="person.jsp">SOAP EDBOPerson</a></li>
+          <li><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій (GUIDES)</a></li>
+          <li><a href="FuncListServlet?person=&html=">список доступних SOAP-функцій (PERSON)</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  
   <div class="mycontainer">
     <div class="row">
       
@@ -353,12 +380,6 @@
       </div>
       
       <div class="col-xs-10">
-        <div class="col-xs-12" id="__title">
-          <center>SOAP EDBOGuides</center>
-          <center><a href="person.jsp">SOAP EDBOPerson</a></center>
-          <center><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій (GUIDES)</a></center>
-          <center><a href="FuncListServlet?person=&html=">список доступних SOAP-функцій (PERSON)</a></center>
-        </div>
         <div class="col-xs-12" id="func_block">
           
         </div>
