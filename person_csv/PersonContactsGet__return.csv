@@ -1,0 +1,8 @@
+;DPersonContacts;
+Id_PersonContact;int;Идентификатор контакта
+Id_Person;int;Идентификатор персоны
+Id_PersonContactType;int;Идентификатор типа контакта
+PersonContactTypeName;string;Название типа контакта
+Value;string;Значение контакта
+Defaull;int;Флаг, указывающий, что контакт является контактом    по умолчанию.
+Id_Language;int;Идентификатор языка названий.

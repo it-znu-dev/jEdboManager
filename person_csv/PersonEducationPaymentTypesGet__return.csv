@@ -1,0 +1,3 @@
+;DPersonEducationPaymentTypes;
+Id_PersonEducationPaymentType;int;Идентификатор типа финансирования.
+PersonEducationPaymentTypeName;string;Название типа финансирования.

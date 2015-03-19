@@ -1,0 +1,5 @@
+;DPersonEducationTypes;
+Id_PersonEducationType;int;Идентификатор типа образования.
+Id_PersonEducationTypeName;int;Идентификатор названия типа образования.
+PersonEducationTypeName;string;Название типа образования.
+Id_Language;int;Идентификатор языка названий.

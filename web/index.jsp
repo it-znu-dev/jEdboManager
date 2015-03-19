@@ -31,6 +31,8 @@
         </script>
         <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="own/js/jquery.blockUI.js"></script>
+        <script type="text/javascript" src="own/js/output_filter.js"></script>
+        <script type="text/javascript" src="own/js/default_values.js"></script>
         
         <script type="text/javascript">
           $(function(){
@@ -77,135 +79,24 @@
               $.unblockUI();
               return true;
             };
-            
+                    
             var isAttrToShow = function(elem,param_name){
-                var attrsToShow;
+                var attr2show = getAttrsToShow(); // output_filter.js
                 if (typeof(param_name) === "undefined"){
                   return false;
                 }
-                switch (elem){
-                  case '#outputLanguagesGet':
-                    attrsToShow  = RegExp([
-                    'LanguageName\\b'
-                    ,'|Id_Language\\b'
-                    ,'|Code\\b'
-                    ].join(''));
-                    break;
-                  case '#outputKOATUUGetL1':
-                    attrsToShow  = RegExp([
-                    'KOATUUFullName\\b'
-                    ,'|KOATUUCodeL1\\b'
-                    ].join(''));
-                    break;
-                  case '#outputKOATUUGetL2':
-                    attrsToShow  = RegExp([
-                    'KOATUUFullName\\b'
-                    ,'|KOATUUCodeL2\\b'
-                    ].join(''));
-                    break;
-                  case '#outputKOATUUGetL3':
-                    attrsToShow  = RegExp([
-                    'KOATUUFullName\\b'
-                    ,'|KOATUUCodeL3\\b'
-                    ].join(''));
-                    break;
-                  case '#outputEducationTypesGet':
-                    attrsToShow  = RegExp([
-                    'Id_EducationType\\b'
-                    ,'|EducationOrganizationFullTypeName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputStreetTypesGet':
-                    attrsToShow  = RegExp([
-                    'Id_StreetType\\b'
-                    ,'|StreetTypeFullName\\b'
-                    ,'|StreetTypeShortName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputSpecRedactionsGet':
-                    attrsToShow  = RegExp([
-                    'SpecRedactionCode\\b'
-                    ,'|SpecRedactionName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputSpecGet':
-                    attrsToShow  = RegExp([
-                    '\\bSpecCode\\b'
-                    ,'|\\bSpecSpecialityName\\b'
-                    ,'|\\bSpecDirectionName\\b'
-                    ,'|\\bSpecIndastryName\\b'
-                    ,'|\\bSpecSpecializationName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputSubjectsGet':
-                    attrsToShow  = RegExp([
-                    '\\bId_Subject\\b'
-                    ,'|\\bSubjectKey\\b'
-                    ,'|\\bIdZnoSubject\\b'
-                    ,'|\\bSubjectName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversitiesGet':
-                    attrsToShow  = RegExp([
-                    'UniversityFullName\\b'
-                    ,'|UniversityKode\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversityFacultetsTypesGet':
-                    attrsToShow  = RegExp([
-                    'UniversityFacultetTypeName\\b'
-                    ,'|Id_UniversityFacultetType\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversityFacultetsGet':
-                    attrsToShow  = RegExp([
-                    'UniversityFacultetFullName\\b'
-                    ,'|UniversityFacultetKode\\b'
-                    ,'|UniversityFacultetTypeName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversityFacultetSpecialitiesGet':
-                    attrsToShow  = RegExp([
-                    '\\bSpecCode\\b'
-                    ,'|\\bSpecSpecialityName\\b'
-                    ,'|\\bSpecDirectionName\\b'
-                    ,'|\\bSpecIndastryName\\b'
-                    ,'|\\bSpecSpecializationName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputQualificationsExGet':
-                    attrsToShow  = RegExp([
-                    'QualificationName\\b'
-                    ,'|Id_Qualification\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversityCoursesGet':
-                    attrsToShow  = RegExp([
-                    'Id_UniversityCourse\\b'
-                    ,'|UniversityCourseName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputQuotasGet':
-                    attrsToShow  = RegExp([
-                    'Id_Quota\\b'
-                    ,'|QuotaName\\b'
-                    ].join(''));
-                    break;
-                  case '#outputUniversityFacultetSpecialitiesQuotasGet':
-                    attrsToShow  = RegExp([
-                    'Id_UniversitySpecialitiesQuota\\b'
-                    ,'|QuotaName\\b'
-                    ,'|SpecSpecialityName\\b'
-                    ,'|SpecDirectionName\\b'
-                    ].join(''));
-                    break;
-                  default:
-                    attrsToShow  = /^.+$/;
-                    break;
+                if (typeof(attr2show[elem.replace(/#output/,"")]) === "undefined"){
+                  return true;
                 }
-                return attrsToShow.test(param_name);
+                var arr = attr2show[elem.replace(/#output/,"")];
+                for (var  i = 0; i < arr.length; i++){
+                  if (arr[i] === param_name){
+                    return true;
+                  }
+                }
+                return false;
             };
-            
+    
             var drawOutputData = function(elem,data){
               var body_len = data.body.length;
               var len = (body_len > 500)? 500: body_len;
@@ -339,45 +230,11 @@
                   +'/>'
                   +'</div>'
                 );
-                if (func_info.receive[j].name === "Id_Language"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("1");
-                }
-                if (func_info.receive[j].name === "ActualDate"){
-                  var d = new Date();
-                  $("#"+func_name+"_"+func_info.receive[j].name).val(
-                    ((d.getDate() < 10)? "0"+d.getDate():d.getDate())+"."
-                    +(((d.getMonth()+1) < 10)? "0"+(d.getMonth()+1):(d.getMonth()+1))+"."
-                    +d.getFullYear()+" "
-                    +((d.getHours() < 10)? "0"+d.getHours():d.getHours())+":"
-                    +((d.getMinutes() < 10)? "0"+d.getMinutes():d.getMinutes())+":"
-                    +((d.getSeconds() < 10)? "0"+d.getSeconds():d.getSeconds())
-                  );
-                }
-                if (func_info.receive[j].name === "UniversityKode"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("ab1bc732-51f3-475c-bcfe-368363369020");
-                }
-                if (func_info.receive[j].name === "User"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("shevchenko.ruslana@edbo.gov.ua");
-                }
-                if (func_info.receive[j].name === "FacultetGetMode"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("1");
-                }
-                if (func_info.receive[j].name === "Id_UniversityFacultetTypes"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("20");
-                }
-                if (func_info.receive[j].name === "IsAvailableForReceiptOfRequest"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("-1");
-                }
-                if (func_info.receive[j].name === "IsAvailableForBindStudentPersons"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("-1");
-                }
-                if (func_info.receive[j].name === "IsAvailableForBindStaffPersons"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val("-1");
-                }
-                if (func_info.receive[j].name === "ApplicationKey"){
-                  $("#"+func_name+"_"+func_info.receive[j].name).val(
-"Y0NzMXVGYnplb2lYZzhxVlA3ZUZ4eFJualhlNnowbkh2dmpTQ0FSNkc5U09iOW9yWExQUnVLZ1FWZVNIQmY5b2JMQ1ZaSHRvcmg5eFFka2pKWGlabUZvVnBFN3hTakZCYUROQkhEQ3FzQUFtTFQ5UzRKOE82a2NGeFJGdUs1rMC="
-                  );
+                var def_vals = getDefaultValues(); //default_values.js
+                if (typeof(def_vals[func_info.receive[j].name]) !== "undefined" 
+                    && !(func_info.receive[j].name === "UniversityKode" && func_name === "UniversitiesGet")
+                ){
+                  $("#"+func_name+"_"+func_info.receive[j].name).val(def_vals[func_info.receive[j].name]);
                 }
               }
               $('#form'+func_name).submit(function(e){

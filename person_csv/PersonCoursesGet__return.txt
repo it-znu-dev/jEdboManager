@@ -1,0 +1,3 @@
+;DPersonCourses;
+Id_Course;int;Идентификатор учебного курса.
+CourseName;string;Название учебного курса.

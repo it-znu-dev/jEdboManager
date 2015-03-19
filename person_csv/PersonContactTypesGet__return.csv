@@ -1,0 +1,5 @@
+;DPersonContactTypes;
+Id_PersonContactType;int;Идентификатор типа контакта.
+Id_PersonContactTypeName;int;Идентификатор названия типа контакта.
+PersonContactTypeName;string;Название типа контакта.
+Id_Language;int;Идентификатор языка названий.

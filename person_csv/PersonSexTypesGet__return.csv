@@ -1,0 +1,5 @@
+;DPersonSexTypes;
+Id_PersonSex;int;Идентификатор пола персоны
+Id_PersonSexName;int;Идентификатор имени пола персоны
+PersonSexName;string;Название пола персоны
+Id_Language;int;Идентификатор языка названий

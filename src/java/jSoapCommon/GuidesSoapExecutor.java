@@ -66,7 +66,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
         name = "`"+jret.getString("name")+"`";
         type = jret.getString("type").replace("string","varchar(255)");
         descr = jret.getString("description");
-        if (name.isEmpty()){
+        if (jret.getString("name").isEmpty()){
           continue;
         }
         sql_str += "  "+name

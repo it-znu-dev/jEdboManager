@@ -5,6 +5,10 @@
  */
 package jFuncList;
 
+import jSoapCommon.GuidesSoapExecutor;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -29,10 +33,25 @@ public class FuncListServlet extends HttpServlet {
    * Формування в залежності від способу взаємодії (json|jsonp)
    * відповіді дії сервлету
    * @param callback callback-рядок у випадку кросдоменної AJAX-взаємодії
-   * @param jo json-об’єкт, який буде виведено
+   * @param jo json-масив, який буде виведено
    * @return строкове представлення json-об’єкту
    */
   public String jResponseString(String callback, JSONArray jo){
+    if (callback == null || callback.isEmpty()){
+      return jo.toString();
+    }
+    return callback 
+            + "("+ jo.toString() + ")";
+  }
+  
+  /**
+   * Формування в залежності від способу взаємодії (json|jsonp)
+   * відповіді дії сервлету
+   * @param callback callback-рядок у випадку кросдоменної AJAX-взаємодії
+   * @param jo json-об’єкт, який буде виведено
+   * @return строкове представлення json-об’єкту
+   */
+  public String jResponseString(String callback, JSONObject jo){
     if (callback == null || callback.isEmpty()){
       return jo.toString();
     }
@@ -134,11 +153,19 @@ public class FuncListServlet extends HttpServlet {
           throws ServletException, IOException, JSONException {
     response.setContentType("text/html;charset=UTF-8");
     FuncList fl = new FuncList();
+    BufferedWriter csv_receive_out = null;
+    BufferedWriter csv_return_out = null;
     try (PrintWriter out = response.getWriter()) {
       String guides = request.getParameter("guides");
       String person = request.getParameter("person");
       String callback = request.getParameter("callback");
       String to_html = request.getParameter("html");
+      
+      String receive_content = request.getParameter("receive_content");
+      String return_content = request.getParameter("return_content");
+      String csv_dir = request.getParameter("csv_dir");
+      String func_name = request.getParameter("func_name");
+      
       if (guides != null){
         if (to_html == null){
           JSONArray ja = fl.getJsonEdboGuidesFuncList();
@@ -156,6 +183,44 @@ public class FuncListServlet extends HttpServlet {
         }
         JSONArray ja = fl.getJsonEdboPersonFuncList();
         this.outEdboFuncList(ja,out);
+      }
+      if (return_content != null 
+              && receive_content != null 
+              && csv_dir != null
+              && func_name != null){
+        String csv_receive = FuncList.getWorkingAbsolutePath() 
+                + "/" + csv_dir + "/" + func_name + "__receive.csv";
+        String csv_return = FuncList.getWorkingAbsolutePath() 
+                + "/" + csv_dir + "/" + func_name + "__return.csv";
+        File fcsv_receive = new File(csv_receive);
+        File fcsv_return = new File(csv_return);
+        //write receive signatures
+        try  {
+          csv_receive_out = new BufferedWriter( new FileWriter(fcsv_receive, false));
+          csv_receive_out.write(receive_content);
+          csv_receive_out.close();
+          //write return signatures
+          try  {
+            csv_return_out = new BufferedWriter( new FileWriter(fcsv_return, false));
+            csv_return_out.write(return_content);
+            csv_return_out.close();
+          }
+          catch (IOException e){ //catch write return signatures exception
+              JSONObject jerr = new JSONObject();
+              jerr.put("error",csv_return+" не відкрився.");
+              out.println(this.jResponseString(callback, jerr));
+              return ;
+          }
+        }
+        catch (IOException e){ //catch write receive signatures exception
+            JSONObject jerr = new JSONObject();
+            jerr.put("error",csv_receive+" не відкрився.");
+            out.println(this.jResponseString(callback, jerr));
+            return ;
+        }
+        JSONObject msg = new JSONObject();
+        msg.put("message", "Файли успішно сформовані!");
+        out.println(this.jResponseString(callback, msg));
       }
     }
   }

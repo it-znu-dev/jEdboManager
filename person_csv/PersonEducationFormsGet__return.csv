@@ -1,0 +1,5 @@
+;DPersonEducationFormsGet;
+Id_PersonEducationForm;int;Идентификатор формыобразования.
+Id_PersonEducationFormName;int;Идентификатор названия формы образования.
+PersonEducationFormName;string;Название формыобразования.
+Id_Language;int;Идентификатор языка названий.
