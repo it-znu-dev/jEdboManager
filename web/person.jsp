@@ -400,8 +400,8 @@
         <ul class="nav navbar-nav">
           <li><a href="index.jsp">SOAP EDBOGuides</a></li>
           <li class="active"><a href="person.jsp">SOAP EDBOPerson</a></li>
-          <li><a href="FuncListServlet?guides=&html=">список доступних SOAP-функцій (GUIDES)</a></li>
-          <li><a href="FuncListServlet?person=&html=">список доступних SOAP-функцій (PERSON)</a></li>
+          <li><a href="FuncListServlet?guides=&html=" target="_blank">список доступних SOAP-функцій (GUIDES)</a></li>
+          <li><a href="FuncListServlet?person=&html=" target="_blank">список доступних SOAP-функцій (PERSON)</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

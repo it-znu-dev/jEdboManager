@@ -1,0 +1,6 @@
+;DPersonDocumentTypes;
+Id_PersonDocumentType;int;Идентификатор типа документа.
+Id_PersonDocumentTypeNames;int;Идентификатор названия типа документа.
+PersonDocumentTypeName;string;Название типа документа.
+Id_Language;int;Идентификатор языка названий.
+IsEntrantDocument;int;Флаг, указывающий на то что документ может  использоваться как документ на основе которого можно подавать заявки.

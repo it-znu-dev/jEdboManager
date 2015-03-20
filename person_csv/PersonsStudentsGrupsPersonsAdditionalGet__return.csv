@@ -1,0 +1,44 @@
+;DPersonsStudentsGrupsPersonsAdditional;
+Id_UniversityGroup;int;Идентификатор группы
+UniversityFacultetKode;string;GUID идентификатор структурного  подразделения
+Id_PersonEducationForm;int;Идентификатор формы обучения
+Id_Qualification;int;Идентификатор квалификационного  уровня
+SpecCode;string;GUID идентификатор специальности
+Id_Course;int;Идентификатор курса
+Id_AcademicYear;int;Идентификатор учебного года
+Id_Person;int;Идентификатор персоны
+FIO;string;ФИО персоны
+Birthday;dateTime;Дата рождения персоны
+PersonCodeU;string;GUID идентификатор персоны
+Id_PersonEducation;int;Идентификатор обучения персоны
+Id_PersonEducationHistory;int;Идентификатор истории обучения  персоны
+Id_PersonEducationPaymentType;int;Идентификатор типа финансирования
+PersonEducationPaymentTypeName;string;Название типа финансирования
+Id_PersonEducationHistoryOrders;int;Идентификатор приказа по студентам
+PersonEducationHistoryOrdersNumber;string;Номер приказа по студентам
+PersonEducationHistoryOrdersDate;dateTime;Дата приказа по студентам
+PersonEducationHistoryTypeName;string;Название типа истории обучения
+AcademicYearName;string;Название учебного года
+CourseName;string;Название курса
+PersonEducationFormName;string;Название формы обучения
+UniversityFacultetFullName;string;Полное название структурного  подразделения
+QualificationName;string;Название квалификационного уровня
+PersonEducationHistoryDateBegin;dateTime;Дата начала текущей истории обучения
+UniversityGroupFullName;string;Полное название учебной группы
+IsRefill;int;Флаг, указывающий на то что студент  зачислен на пополнение
+Id_QualificationGroup;int;Идентификатор группы  квалификационных уровней
+QualificationGroupName;string;Название группы квалификационных  уровней.
+SpecIndastryCode;string;GUID идентификатор индустрии
+SpecIndastryClasifierCode;string;Код индустрии
+SpecIndastryName;string;Название индустрии
+SpecDirectionsCode;string;GUID идентификатор направления
+SpecClasifierCode;string;Код направления
+SpecDirectionName;string;Название направления
+SpecSpecialityCode;string;GUID идентификатор специальности
+SpecSpecialityClasifierCode;string;Код специальности
+SpecSpecialityName;string;Название специальности
+SpecScecializationCode;string;GUID идентификатор специализации
+SpecScecializationName;string;Название специализации
+Resident;int;Флаг, указывающий на то что персона  является резидентом.
+Id_PersonEducationsCancelEducationType;int;Идентификатор причины отчисления
+PersonEducationsCancelEducationTypeName;string;Название причины отчисления

@@ -1,3 +1,3 @@
 ;DPersonAddRet;
-id_Person;int;Идентификатор персоны
+Id_Person;int;Идентификатор персоны
 PersonCodeU;string;GUID идентификатор персоны
