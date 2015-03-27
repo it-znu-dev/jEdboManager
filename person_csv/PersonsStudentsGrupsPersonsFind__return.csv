@@ -1,4 +1,4 @@
-;DPersonsStudentsGrupsPersonsAdditional;
+;DPersonsStudentsGrupsPersonsFind;
 Id_UniversityGroup;int;Идентификатор группы
 UniversityFacultetKode;string;GUID идентификатор структурного  подразделения
 Id_PersonEducationForm;int;Идентификатор формы обучения

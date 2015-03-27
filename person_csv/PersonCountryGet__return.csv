@@ -1,0 +1,3 @@
+;DPersonCountry;
+Id_Country;int;Идентификатор страны
+CountryName;string;Название страны

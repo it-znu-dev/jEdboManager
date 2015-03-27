@@ -8,8 +8,10 @@ package jFuncList;
 import jSoapCommon.GuidesSoapExecutor;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -196,12 +198,12 @@ public class FuncListServlet extends HttpServlet {
         File fcsv_return = new File(csv_return);
         //write receive signatures
         try  {
-          csv_receive_out = new BufferedWriter( new FileWriter(fcsv_receive, false));
+          csv_receive_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fcsv_receive, false), "UTF-8"));
           csv_receive_out.write(receive_content);
           csv_receive_out.close();
           //write return signatures
           try  {
-            csv_return_out = new BufferedWriter( new FileWriter(fcsv_return, false));
+            csv_return_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fcsv_return, false), "UTF-8"));
             csv_return_out.write(return_content);
             csv_return_out.close();
           }

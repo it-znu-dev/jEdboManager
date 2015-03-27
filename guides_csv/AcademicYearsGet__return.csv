@@ -1,0 +1,8 @@
+;DAcademicYears;
+Id_AcademicYear;int;Идентификатор учебного года.
+AcademicYearName;string;Название учебного года.
+AcademicYearDescription;string;Описание учебного года.
+AcademicYearDateBegin;dateTime;Дата начала учебного года.
+AcademicYearDateEnd;dateTime;Дата окончания учебного года.
+AcademicYearDatelLastChange;dateTime;Дата последнего изменения записи.
+AcademicYearIsActive;int;Флаг, указывающий на то что учебный год  активен.

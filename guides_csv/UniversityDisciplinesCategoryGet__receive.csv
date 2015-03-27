@@ -1,0 +1,2 @@
+SessionGUID;string;GUID идентификатор сессии пользователя.
+UniversityKode;string;GUID идентификатор учебного заведения.

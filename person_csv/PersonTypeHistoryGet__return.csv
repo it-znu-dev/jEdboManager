@@ -1,0 +1,8 @@
+;DPersonTypeHistoryGet;
+Id_PersonType;int;Идентификатор типа персоны
+PersonCodeU;string;GUID идентификатор персоны
+Id_PersonTypeDict;int;Идентификатор справочника типа  персоны
+DateLastChange;dateTime;Дата последнего изменения типа  персоны
+IsActive;int;Флаг, указывающий, что данный тип  персоны является активным
+PersonTypeName;string;Название типа персоны.
+Descriptyon;string;Описание типа персоны

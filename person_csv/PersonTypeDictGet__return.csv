@@ -1,0 +1,4 @@
+;DPersonTypeDictGet;
+Id_PersonTypeDict;int;Идентификатор справочника типа  персоны
+PersonTypeName;string;Название типа персоны
+DateLastChange;DateTime;Дата последнего изменения записи

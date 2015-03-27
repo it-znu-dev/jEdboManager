@@ -1,0 +1,56 @@
+;DPersonDocuments21;
+Id_PersonDocument;int;Идентификатор документа
+Id_Person;int;Идентификатор персоны
+Id_PersonDocumentType;int;Идентификатор типа документа
+Id_PersonEducation;int;Идентификатор образования.
+InstitutionCode;string;GUID идентификатор учебного заведения. В случае  если тип документа 2 (аттестат о начальном образовании) указывается GUID идентификатор школы Kode_School
+InstitutionName;string;Название учебного заведения. В случае если тип  документа 2 (аттестат о начальном образовании) указывается название школы.
+PersonEducationDateBegin;dateTime;В случае если тип документа 2 указывается дата  начала учебы.
+PersonEducationDateEnd;dateTime;В случае если тип документа 2 указывается дата  окончания учебы.
+Id_PersonEducationForm;int;Зарезервировано
+Id_PersonEducationFormName;int;Зарезервировано
+PersonEducationFormName;string;Зарезервировано
+Id_PersonEducationType;int;Зарезервировано
+Id_PersonEducationTypeName;int;Зарезервировано
+PersonEducationTypeName;string;Зарезервировано
+DocumentSeries;string;Серия документа.
+DocumentNumbers;string;Номер документа.
+DocumentDateGet;dateTime;Дата выдачи документа
+DocumentExpiredDate;dateTime;Дата окончания действия документа
+DocumentIssued;string;Кем выдан документ
+Description;string;Комментарии
+PersonDocumentBegin;dateTime;Дата начала действия записи
+PersonDocumentEnd;dateTime;Дата окончания действия записи
+ZNOBall;int;В случае если тип документа 4 – указывается баз  ЗНО.
+PersonDocumentTypeName;string;Название типа документа.
+Id_Language;int;Идентификатор языка названий.
+AtestatValue;string;Средний балл аттестата, в случае если тип документа 2
+ZNOPin;int;Пин код сертификата ЗНО
+PersonCodeU;string;GUID идентификатор персоны
+IsCheckForPaperCopy;int;Флаг, указывающий, что документ сверен с  бумажной копией. Возможные значения 0 или 1. В данной версии системы актуален только для аттестата.
+IsForeinghEntrantDocumet;int;Флаг, указывающий что документ получен за  пределами Украины.
+IsNotCheckAttestat;int;Флаг указывающий что аттестат внесен без  проверки в случае если он отсутствует в базе данных аттестатов.
+IsEntrantDocument;int;Флаг, указывающий на то, что данный документ  может использоваться для подачи заявлений на поступление в учебное заведение.
+Id_PersonDocumentsAwardType;int;Идентификатор награды для документа
+PersonDocumentsAwardTypeName;string;Название награды для документа
+Cancellad;int;Флаг, указывающий на то что документ  аннулирован
+SpecNameFull;string;Полное название специальности
+SpecDirectionsCode;string;Код направления
+SpecSpecialityCode;string;Код специальности
+SpecScecializationCode;string;Код специализации
+Id_Qualification;int;Идентификатор квалификационного уровня
+Id_QualificationGroup;int;Идентификатор группы квалификационных уровней
+Id_University;int;Идентификатор вуза
+UniversityFullName;string;Полное название вуза
+CanselInfo;string;Информация об отмене
+Id_PersonDocumentValueType;int;Идентификатор названия значения документа
+PersonDocumentValueTypeName;string;Название значения документа
+Id_PersonDocumentsScans;int;Идентификатор скан-копии документа
+Id_Country;int;Идентификатор страны
+CountryName;string;Страна
+YearEnd;int;Год окончания
+SpecClasifierCode;string;Классификатор-код специальности
+SpecClasifierName;string;Классификатор специальности
+QuailificationName;string;Название квалификационного уровня
+IsExpired;int;Просрочен
+PersonDocumentSourceTypesName;string;Источник документа

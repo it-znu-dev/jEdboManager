@@ -1,0 +1,2 @@
+SessionGUID;string;GUID идентификатор сессии пользователя.
+PersonCodeU;string;GUID идентификатор персоны.

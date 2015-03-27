@@ -1,0 +1,23 @@
+;DPersonsStudentsGrups;
+Id_UniversityGroup;int;Идентификатор группы
+UniversityFacultetKode;string;GUID идентификатор структурного  подразделения
+Id_PersonEducationForm;int;Идентификатор формы обучения
+Id_Qualification;int;Идентификатор квалификационного  уровня
+SpecCode;string;GUID идентификатор специальности
+Id_Course;int;Идентификатор курса
+Id_AcademicYear;int;Идентификатор учебного года
+StudentsCount;string;Количество студентов
+UniversityFacultetFullName;string;Полное название структурного  подразделения
+UniversityGroupFullName;string;Полное название учебной группы
+UniversityGroupShortName;string;Краткое название учебной группы
+AcademicYearName;string;Название учебного года
+CourseName;string;Название курса
+QualificationName;string;Название квалификационного уровня
+PersonEducationFormName;string;Название формы обучения
+SpecClasifierCode;string;Код направления
+SpecDirectionName;string;Название направления
+SpecSpecialityClasifierCode;string;Код специальности
+SpecSpecialityName;string;Название специальности
+SpecScecializationName;string;Название специализации
+Id_QualificationGroup;int;Идентификатор группы  квалификационных уровней
+QualificationGroupName;string;Название группы квалификационных  уровней.

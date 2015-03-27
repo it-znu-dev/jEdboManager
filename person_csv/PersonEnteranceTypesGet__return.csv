@@ -1,0 +1,4 @@
+;DPersonEnteranceTypes;
+Id_PersonEnteranceTypes;int;Идентификатор типа поступления
+PersonEnteranceTypeName;string;Название типа поступления персоны
+DateLastChange;dateTime;Дата последнего изменения записи

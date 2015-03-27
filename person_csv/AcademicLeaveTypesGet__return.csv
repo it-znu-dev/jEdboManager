@@ -1,0 +1,3 @@
+;DAcademicLeaveTypes;
+Id_AcademicLeaveType;int;Идентификатор причины ухода в  академический отпуск.
+AcademicLeaveTypeName;string;Название причины ухода в академический  отпуск.

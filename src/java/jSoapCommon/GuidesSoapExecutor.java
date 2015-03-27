@@ -10,8 +10,10 @@ import java.beans.Introspector;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +49,8 @@ public class GuidesSoapExecutor extends SoapExecutor {
       Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
-    table_name = func_name.replace("Get", "");
-    sql_str += "drop table if exists "+table_name+" ;\n";
+    table_name = func_name.replace("Get", "").toLowerCase();
+    sql_str += "drop table if exists "+table_name+" ;   \n";
     sql_str += "create table "+table_name+"(\n";
     sql_str += "  `id` int primary key auto_increment,\n";
     
@@ -64,7 +66,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
       try {
         jret = ret_params.getJSONObject(i);
         name = "`"+jret.getString("name")+"`";
-        type = jret.getString("type").replace("string","varchar(255)");
+        type = jret.getString("type").replace("string","varchar(255)").replace("String","varchar(255)");
         descr = jret.getString("description");
         if (jret.getString("name").isEmpty()){
           continue;
@@ -75,7 +77,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
         if (i < ret_params.length()-1){
           sql_str += ",\n";
         } else {
-          sql_str += "\n);\n";
+          sql_str += "\n);   \n";
         }
       } catch (JSONException ex) {
         Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,7 +109,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
       Logger.getLogger(GuidesSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
       return null;
     }
-    table_name = func_name.replace("Get", "");
+    table_name = func_name.replace("Get", "").toLowerCase();
 
     for (int i = 0; i < ret_vals.length(); i++){
       JSONObject jo;
@@ -143,7 +145,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
         if (i < ret_vals.length() - 1){
           sql_str += ",\n";
         } else {
-          sql_str += ";\n";
+          sql_str += ";   \n";
         }
         
       } catch (JSONException ex) {
@@ -632,7 +634,7 @@ public class GuidesSoapExecutor extends SoapExecutor {
       funcJSON_arr = this.soapResultJSON.getJSONArray("body");
       GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
       try  {
-        sql_out = new BufferedWriter( new FileWriter(this.fileSQL, false));
+        sql_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.fileSQL, false), "UTF-8"));
         sql_out.write(sql);
         sql_out.close();
       }
@@ -647,11 +649,11 @@ public class GuidesSoapExecutor extends SoapExecutor {
       for (int i = 0; i < jret_arr.length(); i++){
         JSONObject jitem = jret_arr.getJSONObject(i);
         String resultInsertSQL = "";
-        resultInsertSQL += "insert into "+func_name.replace("Get", "")+" (\n";
+        resultInsertSQL += "insert into "+func_name.replace("Get", "").toLowerCase()+" (\n";
         Iterator iter = jitem.keys();
         for (Object obj=iter.next();(obj != null);obj=iter.next()){
           String key = (String)obj;
-          resultInsertSQL += key;
+          resultInsertSQL += "`"+key+"`";
           if (iter.hasNext()){
             resultInsertSQL += ",\n";
           } else {
@@ -671,10 +673,10 @@ public class GuidesSoapExecutor extends SoapExecutor {
             break;
           }
         }
-        resultInsertSQL += "\n);\n";
+        resultInsertSQL += "\n);   \n";
         GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
         try  {
-          sql_out = new BufferedWriter( new FileWriter(this.fileSQL, true));
+          sql_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.fileSQL, true), "UTF-8"));
           sql_out.write(resultInsertSQL);
           sql_out.close();
         }

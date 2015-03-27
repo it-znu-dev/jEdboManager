@@ -1,0 +1,7 @@
+;DPersonRequestStatusTypes;
+Id_PersonRequestStatusType;int;Идентификатор заявки
+DateLastChange;dateTime;Дата последнего изменения записи
+PersonRequestStatusCode;string;Текстовый код статуса
+Id_Language;Int;Идентификатор языка названий
+PersonRequestStatusTypeName;string;Название статуса заявки
+PersonRequestStatusTypeDescription;string;Описание статуса заявки

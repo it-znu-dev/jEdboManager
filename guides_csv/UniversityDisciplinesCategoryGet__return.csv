@@ -1,0 +1,7 @@
+;DUniversityDisciplinesCategory;
+Id_UniversitiesDisciplinesCategory;int;Идентификатор категории
+UniversityKode;int;GUID идентификатор учебного  заведения
+UniversitiesDisciplinesCategoryName;string;Название категории
+UniversitiesDisciplinesCategoryDateLastChange;Int;Дата последнего изменения
+Id_QualificationGroup;Int;Идентификатор группы ОКР
+QualificationGroupName;string;Название группы ОКР

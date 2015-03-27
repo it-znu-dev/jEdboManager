@@ -9,8 +9,10 @@ import jFuncList.FuncList;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -144,7 +146,7 @@ public class GuidesSoapRealExecutor extends GuidesSoapExecutor {
       if (level == 1){
         GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
         try  {
-          sql_out = new BufferedWriter( new FileWriter(this.fileSQL, (level > 1)));
+          sql_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.fileSQL, (level > 1)), "UTF-8"));
           sql_out.write(sql);
           sql_out.close();
         }
@@ -190,7 +192,7 @@ public class GuidesSoapRealExecutor extends GuidesSoapExecutor {
         koatuuInsertSQL += "\n);\n";
         GuidesSoapExecutor._debug("Запис у SQL-файл ... ");
         try  {
-          sql_out = new BufferedWriter( new FileWriter(this.fileSQL, true));
+          sql_out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(this.fileSQL, true), "UTF-8"));
           sql_out.write(koatuuInsertSQL);
           sql_out.close();
         }

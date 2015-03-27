@@ -1,0 +1,4 @@
+;DPersonEducationHistoryTypes;
+Id_PersonEducationHistoryType;int;Идентификатор типа истории обучения.
+PersonEducationHistoryTypeName;string;Название типа истории обучения.
+PersonEducationHistoryTypeDescription;string;Описании типа истории обучения

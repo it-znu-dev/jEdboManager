@@ -164,11 +164,6 @@ public class GuidesServlet extends HttpServlet {
     request.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
     session.setMaxInactiveInterval(60*60*3);
-    this.jGuid = GuidesServlet.jGuids.get(session.getId());
-    if (this.jGuid == null){
-      this.jGuid = "";
-      GuidesServlet.jGuids.put(session.getId(),this.jGuid);
-    }
     String callback = request.getParameter("callback");
     String action = 
       ((request.getParameter(this.actionName)==null)? 
@@ -205,7 +200,14 @@ public class GuidesServlet extends HttpServlet {
       GuidesSoapExecutor._debug("Отримано список доступних SOAP-функцій (к-сть: "+String.valueOf(f_arr.length())+" ).");
       parameters = request.getParameterMap();
       for(String parameter : parameters.keySet()) {
-        if (parameter.equals("SessionGUID") && this.jGuid != null){
+        if (parameter.equals("SessionGUID") && !request.getParameter(parameter).isEmpty()){
+          this.jGuid = request.getParameter(parameter);
+          String savedGuid = GuidesServlet.jGuids.get(session.getId());
+          if (savedGuid == null){
+            GuidesServlet.jGuids.put(session.getId(),this.jGuid);
+          }
+        }
+        if (parameter.equals("SessionGUID") && request.getParameter(parameter).isEmpty()){
           String guid = GuidesServlet.jGuids.get(session.getId());
           GuidesSoapExecutor._debug("Відновлення SessionGUID із пам'яті Http-сесії: ("+session.getId()+" --> "+guid+")");
           params.put(parameter, guid);

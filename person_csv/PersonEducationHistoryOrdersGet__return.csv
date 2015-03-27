@@ -1,0 +1,23 @@
+;DPersonEducationHistoryOrders;
+Id_PersonEducationHistoryOrders;int;Идентификатор приказа по  студентам
+PersonEducationHistoryOrdersNumber;string;Номер приказа
+PersonEducationHistoryOrdersDate;dateTime;Дата приказа
+PersonEducationHistoryOrdersDateLastChange;dateTime;Дата последнего изменения  записи
+UniversityKode;string;GUID идентификатор учебного  заведения
+Id_PersonEducationHistoryType;int;Идентификатор типа истории  обучения приказа
+PersonEducationHistoryTypeName;string;Название типа истории  обучения
+PersonEducationHistoryTypeDescription;string;Описание типа истории  обучения
+Id_PersonEducationHistoryOrderStatus;int;Идентификатор статуса приказа
+PersonEducationHistoryOrderStatusName;string;Название статуса приказа
+Id_RegulationDocument;int;Идентификатор документа на  верификацию приказа
+IsVerified;int;Флаг, указывающий на то, что  приказ верифицирован
+Id_RegulationDocumentVerificationHistoryType;int;Идентификатор статуса  верификации документа
+RegulationDocumentVerificationHistoryTypeName;string;Название статуса верификации  документа
+IsExistFile;int;Флаг, указывающий на наличие  загруженной скан копии документа на верификацию
+StudCount;int;Количество студентов
+AcademicYearName;string;Название учебного года
+FacultetsNames;string;Факультеты студентов  включенных в приказ
+OperatorFIO;string;ФИО оператора создавшего  приказ
+Id_AcademicYear;int;Идентификатор учебного года  приказа.
+Id_User;int;Идентификатор пользователя  создавшего приказ
+RegulationDocumentVerificationHistoryDateLastChange;int;Дата последнего изменения  статуса документа на верификацию для приказа.

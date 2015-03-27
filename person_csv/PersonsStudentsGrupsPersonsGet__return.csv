@@ -1,0 +1,56 @@
+;DPersonsStudentsGrupsPersons;
+Id_UniversityGroup;int;Идентификатор группы
+UniversityFacultetKode;string;GUID идентификатор структурного  подразделения
+Id_PersonEducationForm;int;Идентификатор формы обучения
+Id_Qualification;int;Идентификатор квалификационного  уровня
+SpecCode;string;GUID идентификатор специальности
+Id_Course;int;Идентификатор курса
+Id_AcademicYear;int;Идентификатор учебного года
+Id_Person;int;Идентификатор персоны
+FIO;string;ФИО
+Birthday;dateTime;Дата рождения
+PersonCodeU;string;GUID идентификатор персоны
+Id_PersonEducation;int;Идентификатор образования
+Id_PersonEducationHistory;int;Идентификатор активной записи в  истории образования
+Id_PersonEducationPaymentType;int;Идентификатор финансирования
+PersonEducationPaymentTypeName;string;Название финансирования
+Id_PersonEducationHistoryOrders;int;Идентификатор приказа по студентам
+PersonEducationHistoryOrdersNumber;string;Номер приказ по студентам
+PersonEducationHistoryTypeName;string;Название типа активной истории  образования
+Resident;int;Резидентность персоны
+IsRefill;int;Флаг, указывающий на то что персона  зачислена на пополнение
+Id_PersonEducationHistoryType;int;Идентификатор записи истории обучения
+PersonEducationHistoryDesciption;string;Описание активной истории обучения
+PersonEducationHistoryDateBegin;dateTime;Начало текущей истории обучения
+UniversityGroupCode;string;GUID идентификатор учебнойгруппы
+UniversityGroupFullName;string;Полное название учебнойгруппы
+UniversityGroupShortName;string;Краткое название учебной группы
+UniversityFacultetFullName;string;Полное название структурного  подразделения
+UniversityFacultetShortName;string;Краткое название структурного  подразделения
+Id_PersonRequest;int;Идентификатор заявки на основе  которой зачислен студент
+Id_PersonDocument;int;Идентификатор документа об  образовании на основании которого зачислен студент
+DocumentSeries;string;Серия документа об образовании на  основании которого зачислен студент
+DocumentNumbers;string;Номер документа об образовании на  основании которого зачислен студент
+DocumentDateGet;dateTime;Дата документа об образовании на основании которого зачислен студент
+Id_PersonDocumentType;int;Идентификатор типа документа об образовании на основании которого зачислен студент
+PersonDocumentTypeName;string;Название типа документа
+PersonEducationFormName;string;Название формы обучения
+AcademicYearName;string;Название учебного года
+QualificationName;string;Название квалификационного уровня
+Id_QualificationGroup;int;Идентификатор группы  квалификационных уровней
+QualificationGroupName;string;Название группы квалификационных  уровней
+CourseName;string;Название курса
+SpecIndastryCode;string;GUID идентификатор индустрии
+SpecIndastryClasifierCode;string;Код индустрии
+SpecIndastryName;string;Название индустрии
+SpecDirectionsCode;string;GUID идентификатор направления
+SpecClasifierCode;string;Код направления
+SpecDirectionName;string;Название направления
+SpecSpecialityCode;string;GUID идентификатор специальности
+SpecSpecialityClasifierCode;string;Код специальности
+SpecSpecialityName;string;Название специальности
+SpecSpecializationCode;string;GUID идентификатор специализации
+SpecSpecializationName;string;Название специализации
+Id_PersonEducationsCancelEducationType;int;Идентификатор причины отчисления
+PersonEducationsCancelEducationTypeName;string;Название причины отчисления
+PersonEducationHistoryOrdersDate;dateTime;Дата приказа 

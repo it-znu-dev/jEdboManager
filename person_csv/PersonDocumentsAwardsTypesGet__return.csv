@@ -1,0 +1,3 @@
+;DPersonDocumentsAwards;
+Id_PersonDocumentsAwardType;int;Идентификатор награды.
+PersonDocumentsAwardTypeName;string;Название награды.

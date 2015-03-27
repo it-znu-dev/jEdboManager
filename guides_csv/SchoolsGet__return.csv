@@ -1,0 +1,27 @@
+;DSchools;
+Id_School;int;Идентификатор школы
+Id_EducationType;int;Идентификатор типа учебного заведения.  Полный список типов можно получить с помощью метода EducationTypesGet
+Id_EducationClass;int;Идентификатор класса учебного заведения.  Полный список классов можно получить с помощью метода EducationTypesGet
+Kode_School;string;GUID идентификатор школы
+SchoolDateBegin;dateTime;Дата началадействия школы
+SchoolDateEnd;dateTime;Дата окончания действия школы
+Id_SchoolName;Int;Идентификатор названия школы
+SchoolName;string;Полное название школы
+SchoolShortNam;string;Короткое название школы
+KOATUUCode;string;КОАТУУ код населенного пункта школы
+KOATUUFullName;string;Полное название населенного пункта  школы
+Id_StreetType;int;Тип улицы адреса школы
+StreetTypeShortName;string;Краткое название типа улицы
+StreetTypeFullName;string;Полное название типа улицы
+StreetName;string;Название улицы
+HouceNum;string;Номер дома
+SchoolBossLastName;string;Фамилия директора
+SchoolBossFirstName;string;Имя директора
+SchoolBossMiddleName;string;Отчество директора
+SchoolPhone;string;Номер телефона школы
+SchoolMobile;string;Номер мобильного телефона школы
+SchoolEMail;string;Адрес электронной почты школы
+EducationOrganizationFullTypeName;string;Полное название типа учебного  учреждения
+EducationOrganizationShortTypeName;string;Краткое название типа учебного  учреждения
+EducationOrganizationClassName;string;Название класса учебного учреждения
+Id_Language;int;Идентификатор языка названий

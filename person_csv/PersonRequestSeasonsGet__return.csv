@@ -1,0 +1,10 @@
+;DPersonRequestSeasons;
+Id_PersonRequestSeasons;int;Идентификатор вступительной компании.
+Name;String;Название вступительной компании.
+RequestPerPerson;int;Максимально возможное количество заявок  для персоны
+Closed;int;Флаг, указывающий, что вступительный сезон  закрыт.
+Id_PersonRequestSeasonDetails;int;Идентификатор детализациидля вступительной  компании
+Id_PersonEducationForm;int;Идентификатор формы обучения
+PersonEducationFormName;String;Название формы обучения
+DateBeginPersonRequestSeason;DateTime;Дата начала вступительной компании для  формы обучения
+DateEndPersonRequestSeason;DateTime;Дата окончания вступительной компании для  формы обучения

@@ -1,0 +1,5 @@
+;DRequestExaminationCauses;
+Id_PersonRequestExaminationCause;int;Идентификатор типа причины
+Id_Language;int;Идентификатор языка названий
+PersonRequestExaminationCauseName;string;Название причины
+PersonRequestExaminationCauseDescription;string;Описание причины
