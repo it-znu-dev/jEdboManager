@@ -27,8 +27,6 @@ import org.json.JSONObject;
 @WebServlet(name = "GuidesServlet", urlPatterns = {"/GuidesServlet"})
 public class GuidesServlet extends HttpServlet {
   
-  public static HashMap<String,String> jGuids =  new HashMap<>();
-  public String jGuid;
   public final String actionName = "_$action";
   
   public jSoapCommon.GuidesSoapRealExecutor soapEx     
@@ -154,6 +152,7 @@ public class GuidesServlet extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     JSONObject calling_func = null;
+    String jGuid = "";
     JSONObject koatuu1 = null ,koatuu2 = null ,koatuu3 = null;
     JSONObject err = null;
     Map<String, String[]> parameters;
@@ -163,7 +162,7 @@ public class GuidesServlet extends HttpServlet {
     GuidesSoapExecutor._debug("Старт сервлету "+this.getCurrentTime()+" ; обробка REQUESТ-запиту...");
     request.setCharacterEncoding("UTF-8");
     HttpSession session = request.getSession();
-    session.setMaxInactiveInterval(60*60*3);
+    session.setMaxInactiveInterval(60*10);
     String callback = request.getParameter("callback");
     String action = 
       ((request.getParameter(this.actionName)==null)? 
@@ -201,19 +200,9 @@ public class GuidesServlet extends HttpServlet {
       parameters = request.getParameterMap();
       for(String parameter : parameters.keySet()) {
         if (parameter.equals("SessionGUID") && !request.getParameter(parameter).isEmpty()){
-          this.jGuid = request.getParameter(parameter);
-          String savedGuid = GuidesServlet.jGuids.get(session.getId());
-          if (savedGuid == null){
-            GuidesServlet.jGuids.put(session.getId(),this.jGuid);
-          }
+          jGuid = request.getParameter(parameter);
         }
-        if (parameter.equals("SessionGUID") && request.getParameter(parameter).isEmpty()){
-          String guid = GuidesServlet.jGuids.get(session.getId());
-          GuidesSoapExecutor._debug("Відновлення SessionGUID із пам'яті Http-сесії: ("+session.getId()+" --> "+guid+")");
-          params.put(parameter, guid);
-        } else {
-          params.put(parameter, request.getParameter(parameter));
-        }
+        params.put(parameter, request.getParameter(parameter));
       }
       GuidesSoapExecutor._debug("Збірка REQUESТ-параметрів: зібрано.");
       GuidesSoapExecutor._debug("Пошук json-інфо SOAP-функції для дії '"+action+"' ");
@@ -245,30 +234,27 @@ public class GuidesServlet extends HttpServlet {
       if (action.equals("jKOATUUGetAll")){
         GuidesSoapExecutor._debug("Виклик методу koatuuExecSoap.");
         GuidesSoapExecutor._debug("Використовується ДІЙСНА БАЗА ЄДЕБО.");
-        this.soapEx.koatuuExecSoap(this.jGuid, koatuu1, koatuu2, koatuu3, err, callback, out, 1, null);
+        this.soapEx.koatuuExecSoap(jGuid, koatuu1, koatuu2, koatuu3, err, callback, out, 1, null);
         return ;
       }
       if (calling_func != null){
         try {
           String func_name = calling_func.getString("name");
-          JSONObject jret = this.soapEx.execSoap(this.jGuid, calling_func, params, err, callback, out);
+          JSONObject jret = this.soapEx.execSoap(jGuid, calling_func, params, err, callback, out);
           if (jret == null){
             return ;
           }
           if (func_name.equals("Login") && jret.has("guid")){
             String guid = jret.getString("guid");
             if (guid.matches("^[-0-9a-f]+$")){
-              GuidesSoapExecutor._debug("Збереження SessionGUID в пам'яті Http-сесії: ("+session.getId()+" <-- "+guid+")");
-              GuidesServlet.jGuids.put(session.getId(),guid);
-              this.jGuid = guid;
+              GuidesSoapExecutor._debug("Login проведено успішно: SessionGUID = "+guid);
+              jGuid = guid;
             }
           }
           if (func_name.equals("Logout")){
-            String guid = GuidesServlet.jGuids.get(session.getId());
-            if (guid != null && !guid.isEmpty()){
-              GuidesSoapExecutor._debug("Знищення SessionGUID="+guid+" в пам'яті Http-сесії: X("+session.getId()+")X");
-              GuidesServlet.jGuids.put(session.getId(),"");
-              this.jGuid = null;
+            if (jGuid != null && !jGuid.isEmpty()){
+              GuidesSoapExecutor._debug("Знищення SessionGUID="+jGuid+"");
+              jGuid = null;
             } else {
               JSONObject jrete = this._jsonError("Сесія вже знищена.");
               out.print(this.jResponseString(callback, 

@@ -10,18 +10,13 @@ public class SessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent sessionEvent) {
         String sess = sessionEvent.getSession().getId();
-        GuidesServlet.jGuids.put(sess,"");
-        System.out.println("Session Created:: ID="+sess
-                +" (now count of connections = "+GuidesServlet.jGuids.size()+")");
+        System.out.println("Session Created:: ID="+sess);
     }
  
     @Override
     public void sessionDestroyed(HttpSessionEvent sessionEvent) {
         String sess = sessionEvent.getSession().getId();
-        String jE = GuidesServlet.jGuids.get(sess);
-        GuidesServlet.jGuids.remove(sess);
-        System.out.println("Session Destoyed:: ID="+sess
-                +" (now count of connections = "+GuidesServlet.jGuids.size()+")");
+        System.out.println("Session Destoyed:: ID="+sess);
         
     }
      

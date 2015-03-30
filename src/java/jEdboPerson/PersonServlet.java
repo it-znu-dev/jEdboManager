@@ -27,8 +27,6 @@ import org.json.JSONObject;
 @WebServlet(name = "PersonServlet", urlPatterns = {"/PersonServlet"})
 public class PersonServlet extends HttpServlet {
   
-  public static HashMap<String,String> jGuids =  new HashMap<>();
-  public String jGuid;
   public final String actionName = "_$action";
   
   public jSoapCommon.PersonSoapRealExecutor soapEx     
@@ -146,6 +144,7 @@ public class PersonServlet extends HttpServlet {
     Map<String, String[]> parameters;
     HashMap<String,String> params = new HashMap();
     HashMap < String, JSONObject > funcs;
+    String jGuid = "";
     SoapExecutor._debug("=========================");
     SoapExecutor._debug("Старт сервлету "+this.getCurrentTime()+" ; обробка REQUESТ-запиту...");
     request.setCharacterEncoding("UTF-8");
@@ -188,19 +187,9 @@ public class PersonServlet extends HttpServlet {
       parameters = request.getParameterMap();
       for(String parameter : parameters.keySet()) {
         if (parameter.equals("SessionGUID") && !request.getParameter(parameter).isEmpty()){
-          this.jGuid = request.getParameter(parameter);
-          String savedGuid = PersonServlet.jGuids.get(session.getId());
-          if (savedGuid == null){
-            PersonServlet.jGuids.put(session.getId(),this.jGuid);
-          }
+          jGuid = request.getParameter(parameter);
         }
-        if (parameter.equals("SessionGUID") && request.getParameter(parameter).isEmpty()){
-          String guid = PersonServlet.jGuids.get(session.getId());
-          SoapExecutor._debug("Відновлення SessionGUID із пам'яті Http-сесії: ("+session.getId()+" --> "+guid+")");
-          params.put(parameter, guid);
-        } else {
-          params.put(parameter, request.getParameter(parameter));
-        }
+        params.put(parameter, request.getParameter(parameter));
       }
       SoapExecutor._debug("Збірка REQUESТ-параметрів: зібрано.");
       SoapExecutor._debug("Пошук json-інфо SOAP-функції для дії '"+action+"' ");
@@ -220,24 +209,21 @@ public class PersonServlet extends HttpServlet {
       if (calling_func != null){
         try {
           String func_name = calling_func.getString("name");
-          JSONObject jret = this.soapEx.execSoap(this.jGuid, calling_func, params, err, callback, out);
+          JSONObject jret = this.soapEx.execSoap(jGuid, calling_func, params, err, callback, out);
           if (jret == null){
             return ;
           }
           if (func_name.equals("Login") && jret.has("guid")){
             String guid = jret.getString("guid");
             if (guid.matches("^[-0-9a-f]+$")){
-              SoapExecutor._debug("Збереження SessionGUID в пам'яті Http-сесії: ("+session.getId()+" <-- "+guid+")");
-              PersonServlet.jGuids.put(session.getId(),guid);
-              this.jGuid = guid;
+              SoapExecutor._debug("Login проведено успішно: SessionGUID = "+guid);
+              jGuid = guid;
             }
           }
           if (func_name.equals("Logout")){
-            String guid = PersonServlet.jGuids.get(session.getId());
-            if (guid != null && !guid.isEmpty()){
-              SoapExecutor._debug("Знищення SessionGUID="+guid+" в пам'яті Http-сесії: X("+session.getId()+")X");
-              PersonServlet.jGuids.put(session.getId(),"");
-              this.jGuid = null;
+            if (jGuid != null && !jGuid.isEmpty()){
+              SoapExecutor._debug("Logout: знищення дії SessionGUID="+jGuid);
+              jGuid = null;
             } else {
               JSONObject jrete = this._jsonError("Сесія вже знищена.");
               out.print(this.jResponseString(callback, 
