@@ -1,0 +1,10 @@
+;DPersonOlympiadsAwards;
+Id_PersonOlympiadAward;int;Идентификатор олимпиады персоны
+Id_Person;int;Идентификатор персоны
+Id_OlympiadAward;int;Идентификатор поощрения олимпиады
+DateLastChangePersonOlympiadAward;dateTime;Дата последнего изменения записи об  олимпиадах персоны.
+OlympiadAwardName;string;Название поощрения олимпиады
+OlympiadAwardBonus;float;Значение бонуса (доп. баллы) для  поощрения олимпиады.
+Id_Olimpiad;int;Идентификатор олимпиады
+Id_PersonRequestSeasons;int;Глобальный идентификатор вступительной  компании
+OlimpiadName;string;Название олимпиады

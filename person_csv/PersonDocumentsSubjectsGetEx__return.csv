@@ -1,0 +1,10 @@
+;DPersonDocumentsSubjectsEx;
+Id_PersonDocument;int;Идентификатор документа
+Id_PersonDocumentSubject;int;Идентификатор записи о предмете для документа
+Id_Subject;int;Идентификатор предмета
+IdZnoSubject;int;Идентификатор предмета в ЗНО
+SubjectName;string;Название предмета
+PersonDocumentSubjectValue;int;Балл по предмету в документе
+DocumentNumbers;string;Номер сертификата ЗНО
+ZNOPin;string;Пин сертификата ЗНО
+DocumentDateGet;dateTine;Год сертфиката ЗНО

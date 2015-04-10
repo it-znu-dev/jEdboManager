@@ -1,0 +1,13 @@
+;DPersonBenefits2;
+Id_PersonBenefit;int;Идентификатор льготы или поощрения персоны.
+Id_Person;int;Идентификатор персоны
+Id_Benefit;int;Идентификатор льготы или поощрения.
+Id_BenefitGroup;int;Идентификатор группы льготы или поощрения
+Key;string;Ключ льготы или поощрения
+Id_BenefitName;int;Идентификатор названий льготы или поощрения.
+BenefitName;string;Название льготы.
+BenefitsGroupsName;string;Название группы льготы.
+Id_Language;int;Идентификатор языка названий
+BenefitsDocumentSeries;string;Сериядокумента для льготы
+BenefitsDocumentNumber;string;Номер документа для льготы
+BenefitsDocumentIssued;string;Кем выдан документ для льготы

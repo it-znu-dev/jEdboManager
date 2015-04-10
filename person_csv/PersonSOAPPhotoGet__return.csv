@@ -1,0 +1,6 @@
+;DPersonSOAPPhoto;
+Id_PersonPhoto;int;Идентификатор фото
+PersonPhotoDateLastChange;dateTime;Дата последнего изменения данных
+PersonPhotoIsActive;Int;Флаг, указывающий на то что  фотография активна
+PersonCodeU;string;GUID идентификатор персоны
+PersonPhotoBase64String;string;Массив байт изображения в  формате Base64. Для получения изображения необходимо сконвертировать данную строку в массив byte[].

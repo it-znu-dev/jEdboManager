@@ -1280,6 +1280,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="DateCreate" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="DateLastChange" type="s:dateTime" />
           <s:element minOccurs="1" maxOccurs="1" name="Id_PersonAcademicRankScan" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersonAcademicRankAdd">
@@ -1300,6 +1302,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityClasifierCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PersonAcademicRankScan" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1325,6 +1329,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="KafedraName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityClasifierCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1431,6 +1437,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="Id_AcademicEducationDegreDetailType" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="AcademicEducationDegreDetailFullName" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="AcademicEducationDegreDetailShortName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersonAcademicDegreiesAdd">
@@ -1453,6 +1461,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityClasifierCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="PersonAcademicDegreiesScan" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1482,6 +1492,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityClasifierCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="ScienceSpecialityName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UniversityKode_CertifyingAgencies" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CertifyingAgenciesAdditionalName" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -8944,6 +8956,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="QuailificationName" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="IsExpired" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="PersonDocumentSourceTypesName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id_PersonDocumentSourceTypes" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="PersonDocumentsFullGet">
@@ -9060,6 +9073,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="SpecClasifierCode" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="SpecClasifierName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="QuailificationName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Id_PersonDocumentSourceTypes" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -22722,10 +22736,10 @@
   </wsdl:binding>
   <wsdl:service name="EDBOPerson">
     <wsdl:port name="EDBOPersonSoap" binding="tns:EDBOPersonSoap">
-      <soap:address location="http://edbo.znu.edu.ua:9091/EDBOPerson/EDBOPerson.asmx" />
+      <soap:address location="http://localhost:8080/EDBOPerson/EDBOPerson.asmx" />
     </wsdl:port>
     <wsdl:port name="EDBOPersonSoap12" binding="tns:EDBOPersonSoap12">
-      <soap12:address location="http://edbo.znu.edu.ua:9091/EDBOPerson/EDBOPerson.asmx" />
+      <soap12:address location="http://localhost:8080/EDBOPerson/EDBOPerson.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

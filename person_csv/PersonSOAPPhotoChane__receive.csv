@@ -1,0 +1,4 @@
+SessionGUID;string;GUID идентификатор сессии пользователя.
+UniversityKode;string;GUID идентификатор учебного заведения.
+PersonCodeU;string;GUID идентификатор персоны.
+PersonPhotoBase64String;string;Массив байт изображения в формате Base64

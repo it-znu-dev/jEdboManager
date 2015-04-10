@@ -1,0 +1,11 @@
+;DPersonCourses;
+Id_PersonCourse;int;Идентификатор курса для персоны.
+Id_Person;int;Идентификатор персоны
+UniversityCourseCode;string;GUID идентификатор курсов
+UniversityCourseName;string;Название курсов
+Id_Subject;int;Идентификатор предмета курса
+SubjectName;string;Название предмета
+Id_PersonRequestSeasons;int;Идентификатор глобальной вступительной компании
+PersonRequestSeasonName;string;Название глобальной вступительной компании
+PersonsCourseNote;string;Комментарии
+DateLastChange;dateTime;Дата последнего изменения записи

@@ -1,0 +1,17 @@
+;DPersonAddresses2;
+Id_PersonAddress;int;Идентификатор адреса персоны
+Id_Person;int;Идентификатор персоны
+KOATUUCode;string;Десятизначный код КОАТУУ населенного пункта
+KOATUUFullName;string;Полное название населенного пункта
+Id_StreetType;int;Тип улицы
+StreetTypeFullName;string;Полное название типа улицы
+StreetTypeShortName;string;Краткое название типа улицы
+Adress;string;Адрес
+HomeNumber;string;Номер дома
+NoResidentAdress;string;Полный адрес нерезидентов  Id_Language Идентификатор языка названий.
+PostIndex;string;Почтовый индекс
+Type;string;Тип населенного пункта
+Id_Country;int;Идентификатор страны
+CountryName;string;Название страны
+Apartment;string;Квартира (добавлено в версии 2)
+Housing;string;Корпус (добавлено в версии 2)
