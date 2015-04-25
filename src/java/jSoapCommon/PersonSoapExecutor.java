@@ -404,8 +404,7 @@ public class PersonSoapExecutor extends SoapExecutor {
     if (return_val > 0){
       SoapExecutor._debug("Обробка випадку, коли повернулось значення більше нуля ... ");
       try {
-        jo.put("message", "Виконання функції завершилось. Повернулось значення: "
-                +String.valueOf(return_val));
+        jo.put("message", String.valueOf(return_val));
       } catch (JSONException ex) {
         Logger.getLogger(PersonSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;
@@ -413,8 +412,7 @@ public class PersonSoapExecutor extends SoapExecutor {
     } else {
       SoapExecutor._debug("Обробка випадку, коли повернулось значення менше нуля або нуль ... ");
       try {
-        jo.put("message", "Виконання функції завершилось. Повернулось значення: "
-                +String.valueOf(return_val));
+        jo.put("message", String.valueOf(return_val));
       } catch (JSONException ex) {
         Logger.getLogger(PersonSoapExecutor.class.getName()).log(Level.SEVERE, null, ex);
         return null;

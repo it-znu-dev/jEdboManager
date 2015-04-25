@@ -1,0 +1,60 @@
+;DPersonEducationHistory;
+Id_PersonEducationHistory;int;Идентификатор записи об истории  образования
+Id_PersonEducationHistoryType;int;Идентификатор типа истории  образования
+Id_PersonEducation;int;Идентификатор образования
+Id_PersonEducationPaymentType;int;Идентификатор финансирования
+Id_UniversityGroup;int;Идентификатор учебной группы
+DateLastChange;string;Дата последнего изменения записи об  истории
+IsActive;int;Флаг, указывающий на то что запись об  историиобразования является активной.
+PersonEducationHistoryDesciption;string;Комментарии
+UniversityGroupCode;string;GUID идентификатор учебной группы
+UniversityGroupFullName;string;Полное название учебной группы
+UniversityGroupShortName;string;Краткое название учебной группы
+UniversityGroupDescription;string;Описание учебной группы
+Id_AcademicYear;int;Идентификатор учебного года
+Id_Course;int;Идентификатор курса
+Id_PersonEducationForm;int;Идентификатор формы обучения
+UniversityFacultetKode;string;GUID идентификатор структурного  подразделения
+SpecCode;string;GUID идентификатор специальности
+UniversityKode;string;GUID идентификатор учебного  заведения
+Id_Qualification;int;Идентификатор квалификационного  уровня
+AcademicYearName;string;Название учебного года
+CourseName;string;Название курса
+PersonEducationFormName;string;Название формы обучения
+UniversityFullName;string;Полное название учебного заведения
+UniversityShortName;string;Краткое название учебного заведения
+UniversityFacultetFullName;string;Полное название структурного  подразделения
+UniversityFacultetShortName;string;Краткое название структурного  подразделения
+QualificationName;string;Название квалификационного уровня
+PersonEducationPaymentTypeName;string;Название типа финансирования
+PersonEducationHistoryTypeName;string;Название типа истории
+PersonCodeU;string;GUID идентификатор персоны
+PersonEducationHistoryDateBegin;dateTime;Дата начала действия записи истории
+PersonEducationHistoryDateEnd;dateTime;Дата окончания действия записи  истории (только для типа 60)
+Id_OrderOfEnrollment;int;Идентификатор приказа о зачислении
+Id_PersonEducationHistoryOrders;int;Идентификатор приказа по студентам
+SpecClasifierCode;string;Код направления
+SpecDirectionName;string;Название направления
+SpecSpecialityClasifierCode;string;Код специальности
+SpecSpecialityName;string;Название специальности
+SpecScecializationName;string;Название специализации
+PersonEducationHistoryOrdersNumber;string;Номер приказа по студентам
+PersonEducationHistoryOrdersDate;dateTime;Дата приказа по студентам.
+IsConfirmed;int;Флаг, указывающий на то что приказ по  студентам утвержден.
+Id_AcademicLeaveType;int;Идентификатор типа причины выхода в  академический отпуск
+AcademicLeaveTypeName;string;Название причины выхода в  академический отпуск
+UniversityKodeFrom;string;GUID идентификатор учебного  заведения, из которого восстановился или перевелся студент
+Id_UniversityFrom;int;Код учебного заведения, из которого  восстановился или перевелся студент
+UniversityFullNameFrom;string;Название учебного заведения, из  которого восстановился или перевелся студент
+UserFIO;string;ФИО пользователя внесшего данные
+Id_PersonEducationHistoryCorrected;int;Идентификатор записи истории  обучения Id_PersonEducationHistory которая откорректирована текущей записью в истории обучения
+IsCorrected;int;Флаг, указывающий, что данная запись в  истории обучения откорректирована и является не действительной
+AcademicYearName;string;Название учебного года
+FacultetsNames;string;Перечень структурных подразделений  студентов включенных в приказ
+OperatorFIO;string;ФИО оператора создавшего приказ
+Id_AcademicYear;string;Идентификатор ученого года
+Id_User;string;Идентификатор оператора создавшего  приказ
+Id_PersonEducationsCancelEducationType;int;Идентификатор причины отчисления
+PersonEducationsCancelEducationTypeName;string;Название причины отчисления
+Id_PersonName;int;Идентификатор ФИО персоны для  записи в истории обучения
+FIO;string;ФИО персоны для истории обучения
