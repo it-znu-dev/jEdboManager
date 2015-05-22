@@ -6,6 +6,7 @@
 package jFuncList;
 
 import com.opencsv.CSVReader;
+import jSoapCommon.SoapExecutor;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,6 +58,11 @@ public class FuncList {
     String dir_path = FuncList.getWorkingAbsolutePath() + "/"+folder;
     File dir = new File(dir_path);
     File[] files = dir.listFiles();
+    SoapExecutor._debug("Шлях до проекту: "+dir_path);
+    if (files == null){
+      SoapExecutor._debug("Помилка: не ініціалізований масив csv-файлів директорії "+dir_path);
+      return afuncNames;
+    }
     for (File f : files) {
       String f_str = f.getName();
       Pattern pattern__receive = Pattern.compile("(.+)__receive\\.csv");
